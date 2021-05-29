@@ -36,3 +36,34 @@
     transform: rotate(360deg);
   }
 }
+
+@keyframes rollplay {
+  0%{
+    background-image: url("https://media.geeksforgeeks.org/wp-content/uploads/20200508141000/dice1.png");
+  }
+  20%{
+    background-image: url("https://media.geeksforgeeks.org/wp-content/uploads/20200508141001/dice2.png");
+  }
+  40%{
+    background-image: url("https://media.geeksforgeeks.org/wp-content/uploads/20200508141003/dice3.png");
+  }
+  60%{
+    background-image: url("https://media.geeksforgeeks.org/wp-content/uploads/20200508141004/dice4.png");
+  }
+  80%{
+    background-image: url("https://media.geeksforgeeks.org/wp-content/uploads/20200508141005/dice5.png");
+  }
+  100%{
+    background-image: url("https://media.geeksforgeeks.org/wp-content/uploads/20200508141006/dice6.png");
+  }
+}
+
+.dice{
+  height: 26px;
+  width: 26px;
+  background-size: cover;
+  background-image: url("https://media.geeksforgeeks.org/wp-content/uploads/20200508141000/dice1.png");
+  transition: background .5s;
+  /*linear for movement from point 1 to 2*/
+  animation: rollplay 1s linear infinite;
+}
