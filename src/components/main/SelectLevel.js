@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {RACES} from "../../lib/Api";
 import InputDropdown from "../../lib/InputDropdown";
-import {setListData} from "../../lib/GetArrayData";
 
 export function SelectLevel({setLevelSelection, levelSelection}) {
     const [levelList, setLevelList] = useState([])

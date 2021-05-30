@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavLink, Link} from "react-router-dom";
-import {Navbar, Container, Nav, NavDropdown, Image, Row} from "react-bootstrap";
+import {Navbar, Nav, NavDropdown, Image, Row} from "react-bootstrap";
 import profile_icon from "../../img/profile-icon.png"
 
 export function HomeNav(props) {

@@ -24,13 +24,10 @@ function App() {
     const [subRaceSelection, setSubRaceSelection] = useState(false)
     const [levelSelection, setLevelSelection] = useState(false)
     const [baseAbilitiesSelection, setBaseAbilitiesSelection] = useState(baseAbilities)
+    const [raceProfSelection, setRaceProfSelection] = useState(false)
     const [classProfSelection, setClassProfSelection] = useState(false)
 
-    //console.log(classSelection)
-    //console.log(raceSelection)
-    //console.log(subRaceSelection)
-    //console.log(levelSelection)
-    //console.log(baseAbilitiesSelection)
+    console.log(raceProfSelection)
 
   return (
     <BrowserRouter>
@@ -56,6 +53,8 @@ function App() {
                              setBaseAbilitiesSelection={setBaseAbilitiesSelection}
                              classProfSelection={classProfSelection}
                              setClassProfSelection={setClassProfSelection}
+                             raceProfSelection={raceProfSelection}
+                             setRaceProfSelection={setRaceProfSelection}
                     />
                 </Route>
             </Switch>

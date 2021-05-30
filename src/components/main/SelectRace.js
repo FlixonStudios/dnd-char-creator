@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {RACES} from "../../lib/Api";
 import InputDropdown from "../../lib/InputDropdown";
-import {setListData, getListData} from "../../lib/GetArrayData";
+import {getListData} from "../../lib/GetArrayData";
 import {SelectSubRace} from "./SelectSubRace";
 import {Col} from "react-bootstrap";
 
@@ -10,10 +10,15 @@ export function SelectRace({setRaceSelection, raceSelection,
     const [raceList, setRaceList] = useState([])
     const [raceStatus, setRaceStatus] = useState(false)
     const [raceSelected, setRaceSelected] = useState(false)
-    //const [subRaceList, setSubRaceList] = useState([])
 
     useEffect(()=>{
-        setListData(RACES,setRaceList,setRaceStatus)
+        //setListData(RACES,setRaceList,setRaceStatus)
+        getListData(RACES,'results').then((res)=>{
+            setRaceStatus(true)
+            setRaceList(res)
+        }).catch(err=>{
+            console.log(err)
+        })
 
     },[])
 
@@ -30,7 +35,7 @@ export function SelectRace({setRaceSelection, raceSelection,
             </Col>
 
             {
-                <Col md={4}>
+                <Col md={3}>
                     <RenderSubRace setSubRaceSelection={setSubRaceSelection}
                                    subRaceSelection={subRaceSelection}
                                    raceSelection={raceSelection}/>
@@ -47,7 +52,6 @@ function RenderSubRace({raceSelection, setSubRaceSelection, subRaceSelection}){
 
     useEffect(()=>{
         async function getSubRace(race){
-            console.log(`pulling subraces of ${race}`)
             try{
                 let url = `${RACES}/${race.toLowerCase()}`
                 let data = await getListData(url,'subraces')
@@ -78,8 +82,8 @@ function RenderSubRace({raceSelection, setSubRaceSelection, subRaceSelection}){
             }else{
                 return (
                     <>
-                        <h5>Subrace</h5>
-                        <p>No Subrace</p>
+                        <h5 className={"text-white"}>Subrace</h5>
+                        <p className={"text-white"}>No Subrace</p>
                     </>
                     )
             }
