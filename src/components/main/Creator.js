@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {Container, Row, Col, Dropdown, DropdownButton, Image} from "react-bootstrap";
-import InputDropdown from "../../lib/InputDropdown";
+import {Container, Row, Col} from "react-bootstrap";
 import {SelectClass} from "./SelectClass";
 import {SelectRace} from "./SelectRace";
 import SelectLevel from "./SelectLevel";
 import SelectBaseAbility from "./SelectBaseAbility";
 import SkillProficiencies from "./SkillProficiencies";
-import bg_img from "../../img/dnd-bg.jpg"
-import SelectClassProficiencies from "./SelectClassProficiencies";
+import bg_img from "../../img/dnd-bg.jpg";
 import SelectRaceProficiencies from "./SelectRaceProficiencies";
 import {getListData} from "../../lib/GetArrayData";
 import {RACES} from "../../lib/Api";
+import AbilityModifier from "./AbilityModifier";
+import LevelProficiency from "./LevelProficiency";
 
 export function Creator({
                             setRaceSelection,raceSelection,
@@ -18,11 +18,12 @@ export function Creator({
                             setClassSelection,classSelection,
                             setLevelSelection,levelSelection,
                             setBaseAbilitiesSelection, baseAbilitiesSelection,
-                            setRaceProfSelection,raceProfSelection,
-                            setClassProfSelection, classProfSelection
+                            setProfSelection,profSelection,
+                            setClassProfSelection, classProfSelection,
+                            setModifierValues, modifierValues,
+                            setLevelProficiency,levelProficiency,
+                            setRaceAbilityBonus,raceAbilityBonus
                         }) {
-    const[level, setLevel] = useState(1)
-    const[charClass, setCharClass] = useState('')
     const[raceDetails, setRaceDetails] = useState([])
 
     useEffect(()=>{
@@ -30,10 +31,13 @@ export function Creator({
         if(raceSelection){
             getListData(`${RACES}/${raceSelection.toLowerCase()}`,'').then((res)=>{
                 setRaceDetails(res)
+                console.log(res)
             }).catch(err=>{
                 console.log(err)
             })
         }
+
+        setProfSelection(false)
     },[raceSelection])
 
     return (
@@ -72,8 +76,11 @@ export function Creator({
                             <h1 className={"text-white"}>Portrait</h1>
                         </Row>
                         <Row>
-                            <Col>
+                            <Col  className={`d-flex flex-column align-items-center`}>
                                 <h5 className={"text-white"}>Proficiency</h5>
+                                <LevelProficiency levelSelection={levelSelection}
+                                                  setLevelProficiency={setLevelProficiency}
+                                />
                             </Col>
                             <Col>
                                 <h5 className={"text-white"}>Initiative</h5>
@@ -85,7 +92,7 @@ export function Creator({
                                 <h5 className={"text-white"}>Hit Points</h5>
                             </Col>
                         </Row>
-                        <div>
+                        <div name={"ability-scores"}>
                             <Row >
                                 <Col className={`d-flex justify-content-center`} xs={12}>
                                     <h4 className={"text-white"}>Ability Scores</h4>
@@ -94,6 +101,12 @@ export function Creator({
                             <Row>
                                 <Col sm={4} className={`d-flex flex-column align-items-center`}>
                                     <h5 className={"text-white"}>Strength</h5>
+                                    <AbilityModifier stat={"str"}
+                                                     baseAbilitiesSelection={baseAbilitiesSelection}
+                                                     setModifierValues={setModifierValues}
+                                                     raceAbilityBonus={raceAbilityBonus}
+                                                     raceDetails={raceDetails}
+                                    />
                                     <SelectBaseAbility stat={"str"}
                                                        setBaseAbilitiesSelection={setBaseAbilitiesSelection}
                                                        baseAbilitiesSelection={baseAbilitiesSelection}
@@ -101,6 +114,12 @@ export function Creator({
                                 </Col>
                                 <Col sm={4} className={`d-flex flex-column align-items-center`}>
                                     <h5 className={"text-white"}>Dexterity</h5>
+                                    <AbilityModifier stat={"dex"}
+                                                     baseAbilitiesSelection={baseAbilitiesSelection}
+                                                     setModifierValues={setModifierValues}
+                                                     raceAbilityBonus={raceAbilityBonus}
+                                                     raceDetails={raceDetails}
+                                    />
                                     <SelectBaseAbility stat={"dex"}
                                                        setBaseAbilitiesSelection={setBaseAbilitiesSelection}
                                                        baseAbilitiesSelection={baseAbilitiesSelection}
@@ -108,6 +127,12 @@ export function Creator({
                                 </Col>
                                 <Col sm={4} className={`d-flex flex-column align-items-center`}>
                                     <h5 className={"text-white"}>Constitution</h5>
+                                    <AbilityModifier stat={"con"}
+                                                     baseAbilitiesSelection={baseAbilitiesSelection}
+                                                     setModifierValues={setModifierValues}
+                                                     raceAbilityBonus={raceAbilityBonus}
+                                                     raceDetails={raceDetails}
+                                    />
                                     <SelectBaseAbility stat={"con"}
                                                        setBaseAbilitiesSelection={setBaseAbilitiesSelection}
                                                        baseAbilitiesSelection={baseAbilitiesSelection}
@@ -117,6 +142,12 @@ export function Creator({
                             <Row>
                                 <Col sm={4} className={`d-flex flex-column align-items-center`}>
                                     <h5 className={"text-white"}>Intelligence</h5>
+                                    <AbilityModifier stat={"int"}
+                                                     baseAbilitiesSelection={baseAbilitiesSelection}
+                                                     setModifierValues={setModifierValues}
+                                                     raceAbilityBonus={raceAbilityBonus}
+                                                     raceDetails={raceDetails}
+                                    />
                                     <SelectBaseAbility stat={"int"}
                                                        setBaseAbilitiesSelection={setBaseAbilitiesSelection}
                                                        baseAbilitiesSelection={baseAbilitiesSelection}
@@ -124,6 +155,12 @@ export function Creator({
                                 </Col>
                                 <Col sm={4} className={`d-flex flex-column align-items-center`}>
                                     <h5 className={"text-white"}>Wisdom</h5>
+                                    <AbilityModifier stat={"wis"}
+                                                     baseAbilitiesSelection={baseAbilitiesSelection}
+                                                     setModifierValues={setModifierValues}
+                                                     raceAbilityBonus={raceAbilityBonus}
+                                                     raceDetails={raceDetails}
+                                    />
                                     <SelectBaseAbility stat={"wis"}
                                                        setBaseAbilitiesSelection={setBaseAbilitiesSelection}
                                                        baseAbilitiesSelection={baseAbilitiesSelection}
@@ -131,6 +168,12 @@ export function Creator({
                                 </Col>
                                 <Col sm={4} className={`d-flex flex-column align-items-center`}>
                                     <h5 className={"text-white"}>Charisma</h5>
+                                    <AbilityModifier stat={"cha"}
+                                                     baseAbilitiesSelection={baseAbilitiesSelection}
+                                                     setModifierValues={setModifierValues}
+                                                     raceAbilityBonus={raceAbilityBonus}
+                                                     raceDetails={raceDetails}
+                                    />
                                     <SelectBaseAbility stat={"cha"}
                                                        setBaseAbilitiesSelection={setBaseAbilitiesSelection}
                                                        baseAbilitiesSelection={baseAbilitiesSelection}
@@ -138,19 +181,21 @@ export function Creator({
                                 </Col>
                             </Row>
                         </div>
+                        <div name={"Selections"}>
+                            <Row className={`d-flex justify-content-center`}>
+                                <h5 className={"text-white"}>Selected Proficiencies</h5>
+                            </Row>
+                            <Row>
+                                {(raceSelection) ? <SelectRaceProficiencies raceDetails={raceDetails}
+                                                                            raceSelection={raceSelection}
+                                                                            profSelection={profSelection}
+                                                                            setProfSelection={setProfSelection}
 
-                        <Row className={`d-flex justify-content-center`}>
-                            <h5 className={"text-white"}>Selected Proficiencies</h5>
-                        </Row>
-                        <Row>
-                            {raceSelection && <SelectRaceProficiencies raceDetails={raceDetails}
-                                                                       raceSelection={raceSelection}
-                                                                       raceProfSelection={raceProfSelection}
-                                                                       setRaceProfSelection={setRaceProfSelection}
+                                />:<></>}
 
-                            />}
+                            </Row>
+                        </div>
 
-                        </Row>
                         <Row>
                             <Col sm={6} className={"text-white"}>
                                 <h5>Saving Throws</h5>
@@ -181,6 +226,10 @@ export function Creator({
                         <SkillProficiencies
                             setClassProfSelection={setClassProfSelection}
                             classProfSelection={classProfSelection}
+                            profSelection={profSelection}
+                            setProfSelection={setProfSelection}
+                            levelProficiency={levelProficiency}
+                            modifierValues={modifierValues}
                         />
                     </Col>
                 </Row>

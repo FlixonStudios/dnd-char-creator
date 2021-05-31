@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Col, Row} from "react-bootstrap";
 
-export function SelectionBar({id, numOfChoices, choice, setChoicesSelected, choicesSelected}) {
+export function SelectionBar({numOfChoices, choice, setChoicesSelected, choicesSelected,
+                                 defaultChoices, setDefaultChoiceSelected}) {
     const[select, setSelect] = useState({})
 
     useEffect(()=>{
-        console.log(choice)
-    },[choicesSelected])
+        //console.log(choice)
+        //console.log(`selection rendered ${choice.index}`)
+    },[])
 
     function changeToSelected(e){
         if (e.target.innerText ==="Select"){
@@ -35,7 +37,7 @@ export function SelectionBar({id, numOfChoices, choice, setChoicesSelected, choi
     }
     function checkChoiceLimit(){
         let findIndex = choicesSelected.findIndex((el)=>(el.index===choice.index))
-        if (choicesSelected.length >= numOfChoices && findIndex < 0){
+        if (choicesSelected.length >= (numOfChoices) && findIndex < 0){
             return (
                 <Button variant={"primary"} type={"button"} value={choice}
                         disabled>
@@ -58,6 +60,21 @@ export function SelectionBar({id, numOfChoices, choice, setChoicesSelected, choi
             )
         }
     }
+    function renderDefault(){
+        return (
+            <Button variant={"secondary"} type={"button"} value={choice}
+                    disabled>
+                Default
+            </Button>
+        )
+    }
+    function renderDefaultOrSelection(){
+        if (numOfChoices>0){
+            return checkChoiceLimit()
+        }else{
+            return renderDefault()
+        }
+    }
 
     return (
         <Row>
@@ -66,7 +83,7 @@ export function SelectionBar({id, numOfChoices, choice, setChoicesSelected, choi
             </Col>
             <Col>
                 {
-                    checkChoiceLimit()
+                    renderDefaultOrSelection()
                 }
             </Col>
         </Row>

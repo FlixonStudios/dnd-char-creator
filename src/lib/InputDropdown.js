@@ -5,8 +5,7 @@ export function InputDropdown({title, list, keyName, status, selection, setSelec
     const [listState, setListState] = useState([])
 
     useEffect(()=>{
-        setListState(list)
-        //console.log(`${title} rendered?: ${status}`)
+
     },[status])
 
     function renderList(){

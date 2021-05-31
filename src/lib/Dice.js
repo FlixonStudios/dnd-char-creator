@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Button, Image} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 
 export function Dice({setBase, roll, setRoll}) {
     const diceImages = {
@@ -10,7 +10,7 @@ export function Dice({setBase, roll, setRoll}) {
         "5": "https://media.geeksforgeeks.org/wp-content/uploads/20200508141005/dice5.png",
         "6": "https://media.geeksforgeeks.org/wp-content/uploads/20200508141006/dice6.png",
     }
-    const [value, setValue] = useState("1")
+    const [active,setActive] = useState(true)
     const myRef = useRef()
 
     useEffect(()=>{
@@ -18,7 +18,6 @@ export function Dice({setBase, roll, setRoll}) {
     },[roll])
 
     function checkForGroupRoll(){
-
         if (roll){
             myRef.current.click()
             setRoll(false)
@@ -26,15 +25,17 @@ export function Dice({setBase, roll, setRoll}) {
     }
 
     function rollDice(e) {
-        let diceNumber = Math.floor(Math.random() * 6) + 1
-        e.target.classList.add("dice")
-        setTimeout( ()=>{
-            e.target.classList.remove("dice")
-            setValue(diceNumber.toString())
-            setBase(prevValue => prevValue + diceNumber)
-        },2000)
-
-        e.target.style.backgroundImage = `url(${diceImages[diceNumber.toString()]})`
+        if(active){
+            let diceNumber = Math.floor(Math.random() * 6) + 1
+            e.target.classList.add("dice")
+            setTimeout( ()=>{
+                e.target.classList.remove("dice")
+                setBase(prevValue => prevValue + diceNumber)
+                e.target.classList.add("disabled")
+                setActive(false)
+            },2000)
+            e.target.style.backgroundImage = `url(${diceImages[diceNumber.toString()]})`
+        }
     }
     return (
         <div>

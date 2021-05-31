@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Row} from "react-bootstrap";
 import Dice from "../../lib/Dice";
 
-export function SelectBaseAbility({stat,setBaseAbilitiesSelection,baseAbilitiesSelection}) {
+export function SelectBaseAbility({stat, setBaseAbilitiesSelection,baseAbilitiesSelection}) {
     const [base, setBase] = useState(0)
     const [roll, setRoll] = useState(false)
     const [active, setActive] = useState(true)

@@ -9,7 +9,6 @@ export function SelectRace({setRaceSelection, raceSelection,
                                setSubRaceSelection, subRaceSelection}) {
     const [raceList, setRaceList] = useState([])
     const [raceStatus, setRaceStatus] = useState(false)
-    const [raceSelected, setRaceSelected] = useState(false)
 
     useEffect(()=>{
         //setListData(RACES,setRaceList,setRaceStatus)

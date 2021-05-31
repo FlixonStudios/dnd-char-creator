@@ -3,14 +3,13 @@ import {hasKey} from "../../lib/Func";
 import GroupOfSelection from "../../lib/GroupOfSelection";
 
 
-function SelectRaceProficiencies({raceDetails, raceSelection,raceProfSelection,setRaceProfSelection}) {
+function SelectRaceProficiencies({raceDetails, raceSelection,profSelection,setProfSelection}) {
     const [startProf, setStartProf] = useState([])
     const [startProfOptions, setStartProfOptions] = useState([])
     const [numOfChoices, setNumOfChoices] = useState(1)
 
-    let race = raceSelection?.toLowerCase()
-
     useEffect(()=>{
+        console.log(profSelection)
         setStartProf([])
         setStartProfOptions([])
 
@@ -19,26 +18,27 @@ function SelectRaceProficiencies({raceDetails, raceSelection,raceProfSelection,s
         }
 
         if(hasKey(raceDetails,'starting_proficiency_options')){
-            if(raceDetails['starting_proficiency_options'],'from'){
+            if(hasKey(raceDetails['starting_proficiency_options'],'from')){
                 setNumOfChoices(raceDetails['starting_proficiency_options']['choose'])
                 setStartProfOptions(raceDetails['starting_proficiency_options']['from'])
             }
         }
-    },[raceDetails, setStartProf, setStartProfOptions])
+    },[raceSelection, raceDetails])
 
     function renderStartProfOptions(){
-        if (startProfOptions.length>0){
+
             return(
                 <>
 
                     <GroupOfSelection list={startProfOptions}
                                       numOfChoices={numOfChoices}
+                                      defaultChoices={startProf}
                                       title={"Please Select Proficiencies for your Race"}
                                       tag={"race"}
-                                      setReturn={setRaceProfSelection}/>
+                                      setReturn={setProfSelection}/>
                 </>
             )
-        }
+
 
 
     }
