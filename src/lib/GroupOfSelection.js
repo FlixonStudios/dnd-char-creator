@@ -2,15 +2,16 @@ import React, {useEffect, useState} from 'react';
 import {Button, Row, Container} from "react-bootstrap";
 import SelectionBar from "./SelectionBar";
 
-export function GroupOfSelection({list, numOfChoices, defaultChoices, title="" ,tag="",setReturn}) {
+export function GroupOfSelection({list, numOfChoices, defaultChoices, tagDisplay="" , title="" ,tag="",setReturn}) {
     const [choicesSelected, setChoicesSelected] = useState([])
     const [confirmed, setConfirmed] = useState(false)
+    const [choiceId, setChoiceId] = useState([])
 
     useEffect(()=>{
+
         setChoicesSelected([])
         setReturn(prevState=>({...prevState,...{[tag]:[]}}))
     },[list])
-    //choicesSelected,confirmed
 
     function lockDetails(){
         let temp = [...defaultChoices, ...choicesSelected]
@@ -31,11 +32,13 @@ export function GroupOfSelection({list, numOfChoices, defaultChoices, title="" ,
                         defaultChoices.map((choice, index)=>(
                             <>
                                 <SelectionBar numOfChoices={0}
-                                              key={choice.index}
+                                              key={index}
+                                              id={`${choice.index}-${index}-${numOfChoices}`}
                                               choice={choice}
                                               setChoicesSelected={setChoicesSelected}
                                               choicesSelected={choicesSelected}
-                                              defaultChoices={defaultChoices}
+                                              choiceId={choiceId}
+                                              setChoiceId={setChoiceId}
                                 />
                             </>
                         ))
@@ -44,11 +47,13 @@ export function GroupOfSelection({list, numOfChoices, defaultChoices, title="" ,
                         list.map((choice, index) => (
                                 <>
                                     <SelectionBar numOfChoices={numOfChoices}
-                                                  key={choice.index}
+                                                  key={index}
+                                                  id={`${choice.index}-${index}-${numOfChoices}`}
                                                   choice={choice}
                                                   setChoicesSelected={setChoicesSelected}
                                                   choicesSelected={choicesSelected}
-                                                  defaultChoices={defaultChoices}
+                                                  choiceId={choiceId}
+                                                  setChoiceId={setChoiceId}
                                     />
 
                                 </>
@@ -70,7 +75,9 @@ export function GroupOfSelection({list, numOfChoices, defaultChoices, title="" ,
         }else{
             return(
                 <>
-                    <Button variant={"success"} onClick={()=>setConfirmed(false)}>{tag.toUpperCase()}</Button>
+                    <Button variant={"success"} onClick={()=>setConfirmed(false)}>
+                        {tagDisplay.toUpperCase()}
+                    </Button>
                 </>
             )
         }

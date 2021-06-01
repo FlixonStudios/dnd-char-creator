@@ -33,7 +33,7 @@ export function AbilityModifier({stat,baseAbilitiesSelection,
     },[baseAbilitiesSelection,raceDetails])
 
     function calculateAbilityBonus(){
-        console.log(raceDetails['ability_bonuses'])
+
         if (hasKey(raceDetails,'ability_bonuses')){
             let abilityBonuses = raceDetails['ability_bonuses']
 
@@ -42,7 +42,7 @@ export function AbilityModifier({stat,baseAbilitiesSelection,
                     return (el['ability_score'].index === stat)
                 }
             })
-            console.log(raceBonus)
+
             if(hasKey(raceBonus,'bonus')){
                 return raceBonus['bonus']
             }else{
@@ -59,7 +59,6 @@ export function AbilityModifier({stat,baseAbilitiesSelection,
             let raceBonus = calculateAbilityBonus()
 
             let finalScore = baseScore + raceBonus + abilityImprovements
-            console.log(finalScore)
 
             let findIndex = scoreTable.findIndex((el)=>{
                 return(finalScore >= el[0] && finalScore <= el[1])

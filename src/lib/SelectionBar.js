@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Col, Row} from "react-bootstrap";
 
 export function SelectionBar({numOfChoices, choice, setChoicesSelected, choicesSelected,
-                                 defaultChoices, setDefaultChoiceSelected}) {
+                                 id, choiceId, setChoiceId}) {
     const[select, setSelect] = useState({})
 
     useEffect(()=>{
@@ -27,16 +27,25 @@ export function SelectionBar({numOfChoices, choice, setChoicesSelected, choicesS
     function addSelected(e){
         let temp = {...choice}
         setChoicesSelected(prevState=>([...prevState, temp]))
+        setChoiceId(prevState=>[...prevState,id])
     }
 
     function removeSelected(e){
+
         let filtered = choicesSelected.filter((el)=>{
             return(el.index !== choice.index)
         })
+        let filteredId = choiceId.filter((el)=>{
+            return(el !== id)
+        })
+        setChoiceId(filteredId)
         setChoicesSelected(filtered)
+
     }
     function checkChoiceLimit(){
-        let findIndex = choicesSelected.findIndex((el)=>(el.index===choice.index))
+        // Since choice.index is not unique, we generate and pass in our own identifier
+        let findIndex = choiceId.findIndex((el)=>(el===id))
+
         if (choicesSelected.length >= (numOfChoices) && findIndex < 0){
             return (
                 <Button variant={"primary"} type={"button"} value={choice}

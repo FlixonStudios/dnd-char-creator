@@ -39,10 +39,12 @@ export function SkillProficiencies({profSelection, levelProficiency=0, modifierV
 
         if(profSelection){
             for(let detail in profSelection){
-                let skillProfs = profSelection[detail].filter((el)=>{
-                    return(el.index.substr(0,6) === "skill-")
-                })
-                newSkillProf = [...newSkillProf,...skillProfs]
+                if(profSelection[detail]){
+                    let skillProfs = profSelection[detail].filter((el)=>{
+                        return(el.index.substr(0,6) === "skill-")
+                    })
+                    newSkillProf = [...newSkillProf,...skillProfs]
+                }
             }
             setNewProf(newSkillProf)
         }

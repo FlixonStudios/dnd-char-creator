@@ -8,39 +8,39 @@ function SelectRaceProficiencies({raceDetails, raceSelection,profSelection,setPr
     const [startProfOptions, setStartProfOptions] = useState([])
     const [numOfChoices, setNumOfChoices] = useState(1)
 
+    let startProfKey = 'starting_proficiencies'
+    let optionProfKey = 'starting_proficiency_options'
+
     useEffect(()=>{
-        console.log(profSelection)
         setStartProf([])
         setStartProfOptions([])
 
-        if(hasKey(raceDetails,'starting_proficiencies')){
-            setStartProf(raceDetails['starting_proficiencies'])
+        if(hasKey(raceDetails,startProfKey)){
+            setStartProf(raceDetails[startProfKey])
         }
 
-        if(hasKey(raceDetails,'starting_proficiency_options')){
-            if(hasKey(raceDetails['starting_proficiency_options'],'from')){
-                setNumOfChoices(raceDetails['starting_proficiency_options']['choose'])
-                setStartProfOptions(raceDetails['starting_proficiency_options']['from'])
+        if(hasKey(raceDetails,optionProfKey)){
+            if(hasKey(raceDetails[optionProfKey],'from')){
+                setNumOfChoices(raceDetails[optionProfKey]['choose'])
+                setStartProfOptions(raceDetails[optionProfKey]['from'])
             }
         }
     },[raceSelection, raceDetails])
 
     function renderStartProfOptions(){
-
-            return(
-                <>
-
-                    <GroupOfSelection list={startProfOptions}
-                                      numOfChoices={numOfChoices}
-                                      defaultChoices={startProf}
-                                      title={"Please Select Proficiencies for your Race"}
-                                      tag={"race"}
-                                      setReturn={setProfSelection}/>
-                </>
-            )
-
-
-
+            if(startProf.length > 0 || startProfOptions.length > 0){
+                return(
+                    <>
+                        <GroupOfSelection list={startProfOptions}
+                                          tagDisplay={"Race: Proficiencies"}
+                                          numOfChoices={numOfChoices}
+                                          defaultChoices={startProf}
+                                          title={"Please Select Proficiencies for your Race"}
+                                          tag={"race"}
+                                          setReturn={setProfSelection}/>
+                    </>
+                )
+            }
     }
 
     return (
