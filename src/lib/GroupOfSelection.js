@@ -9,10 +9,8 @@ export function GroupOfSelection({list, numOfChoices, defaultChoices, selection,
     const [choiceId, setChoiceId] = useState([])
 
     useEffect(()=>{
-
         setChoicesSelected([])
         setReturn(prevState=>({...prevState,...{[tag]:[]}}))
-        console.log(defaultChoices)
     },[list])
 
     function lockDetails(){

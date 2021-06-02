@@ -1,33 +1,49 @@
-import React from 'react';
-import {NavLink, Link} from "react-router-dom";
-import {Navbar, Nav, NavDropdown, Image, Row} from "react-bootstrap";
-import profile_icon from "../../img/profile-icon.png"
+import React, {useEffect, useState} from 'react';
+import {Link} from "react-router-dom";
+import {Col, Row, Button, DropdownButton, Form, FormLabel} from "react-bootstrap";
+import {getUserFromFirebase, getUsersFromFirebase} from "../../lib/Func";
+
 
 export function HomeNav(props) {
-    return (
-        <Navbar bg="" expand="lg" className={"p-0"}>
+    const [users, setUsers] = useState([])
+    const [loading, setLoading] = useState(true)
 
-                <Navbar.Brand className={"p-0"}>
+
+    useEffect(()=>{
+
+    },[])
+    useEffect(()=>{
+        console.log(users)
+    },[users])
+
+    return (
+            <Row>
+                <Col md={6}>
                     <Link to={"/home"}>
                         <h2 className={"text-white text-decoration-none"}>Dungeons & Dragons</h2>
                     </Link>
                     <h5 className={"text-white"}>5th Edition</h5>
-                </Navbar.Brand>
-                <Nav className="me-auto">
-                    <Row>
-                        <Image style={{height:"20px"}} src={profile_icon} />
-                        <NavDropdown title="" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="/">Profile</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href={"/"}>
-                                Logout
-                            </NavDropdown.Item>
-                        </NavDropdown>
-                    </Row>
-                </Nav>
+                </Col>
+                <Col md={2}></Col>
+                <Col md={4} className={"d-flex align-items-center justify-content-end"}>
+                    <DropdownButton title={"Login/Register"} variant={"primary"} as={"button-group"}>
+                    <Form className={"m-2"}>
+                        <FormLabel>Email Address</FormLabel>
+                        <input type={"email"} className={"form-control"} placeholder={"email@example.com"}/>
+                        <FormLabel>Password</FormLabel>
+                        <input type={"password"} className={"form-control"} placeholder={"Password"}/>
+                        <Button variant={"success"} size={"sm"} className={"m-2"}>Login</Button>
+                        <Button variant={"primary"} size={"sm"} className={"m-2"}>Register</Button>
+                    </Form>
 
 
-        </Navbar>
+
+                    </DropdownButton>
+
+                </Col>
+            </Row>
+
+
     );
 }
 

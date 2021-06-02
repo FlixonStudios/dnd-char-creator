@@ -21,6 +21,8 @@ function App() {
     }
 
     const charData = {
+        "name":"",
+        "img": "",
         "ability-scores": {
             "str": 0,
             "dex": 0,
@@ -47,6 +49,9 @@ function App() {
         },
         "ability-bonus":[],
         "traits":[],
+        "initiative": 0,
+        "armor-class": 0,
+        "hit-points": 0,
         "saving-throw-bonus":[],
         "skill-proficiencies": [],
         "weapon-proficiencies": [],
@@ -82,13 +87,15 @@ function App() {
     const [modifierValues, setModifierValues] = useState(modifiers)
     const [traitSelection, setTraitSelection] = useState(false)
     const [savingThrows, setSavingThrows] = useState([])
+    const [hitDie, setHitDie] = useState()
     const [languages, setLanguages] = useState(false)
+    const [charImg, setCharImg] = useState("")
 
     //console.log(baseAbilitiesSelection)
     //console.log(modifierValues)
     //console.log(profSelection)
     //console.log(traitSelection)
-    console.log(languages)
+    //console.log(languages)
 
 
 
@@ -107,9 +114,22 @@ function App() {
     },[languages])
 
     useEffect(()=>{
+
         abilityScoreHandler("ability-scores")
         savingThrowHandler('saving-throws')
+        calculateInitiative('initiative')
+        calculateArmorClass('armor-class')
+        calculateHitPoints('hit-points')
     },[baseAbilitiesSelection, raceAbilityBonus])
+
+    useEffect(()=>{
+        modifierHandler('ability-modifiers')
+        calculateHitPoints('hit-points')
+    },[modifierValues])
+
+    useEffect(()=>{
+        calculateHitPoints('hit-points')
+    },[classSelection, levelSelection])
 
     useEffect(()=>{
         savingThrowHandler('saving-throws')
@@ -183,16 +203,34 @@ function App() {
             setCharacter(prevState => ({...prevState, ...{[keyName]:modifierObj}}))
         }
     }
-    function languageHandler(keyName){
-        let list = []
-        if(languages){
-            for(let attribute in languages){
-                list = [...list, ...languages[attribute]]
+    function calculateInitiative(keyName){
+        let base = character['ability-modifiers']['dex']
+        let finalValue = base
+        setCharacter(prevState => ({...prevState, ...{[keyName]:finalValue}}))
+    }
+    function calculateArmorClass(keyName){
+        let base = character['ability-modifiers']['dex']
+        let finalValue = base
+        setCharacter(prevState => ({...prevState, ...{[keyName]:finalValue}}))
+    }
+    function calculateHitPoints(keyName){
+        let base = 0; let levelGain = 0
+        if(classSelection){
+            base = hitDie
+        }
+        let modifier = character['ability-modifiers']['con']
+        if (levelSelection || levelSelection===undefined){
+            for(let i = 1; i < levelSelection; i++){
+                levelGain += (Math.floor(Math.random()*10)+1 + modifier)
             }
-            setCharacter(prevState => ({...prevState, ...{[keyName]:list} }))
         }
 
-
+        let finalValue = base + modifier + levelGain
+        setCharacter(prevState => ({...prevState, ...{[keyName]:finalValue}}))
+    }
+    function modifierHandler(keyName){
+        let modifiers = {...modifierValues}
+        setCharacter(prevState => ({...prevState, ...{[keyName]:modifiers}}))
     }
 
   return (
@@ -225,12 +263,16 @@ function App() {
                              setLevelProficiency={setLevelProficiency}
                              raceAbilityBonus={raceAbilityBonus}
                              setRaceAbilityBonus={setRaceAbilityBonus}
-                             traitSelection = {traitSelection}
-                             setTraitSelection = {setTraitSelection}
-                             savingThrows = {savingThrows}
-                             setSavingThrows = {setSavingThrows}
-                             languages = {languages}
-                             setLanguages = {setLanguages}
+                             traitSelection={traitSelection}
+                             setTraitSelection={setTraitSelection}
+                             savingThrows={savingThrows}
+                             setSavingThrows={setSavingThrows}
+                             hitDie={hitDie}
+                             setHitDie={setHitDie}
+                             languages={languages}
+                             setLanguages={setLanguages}
+                             setCharImg={setCharImg}
+                             charImg={charImg}
                              character={character}
                     />
                 </Route>

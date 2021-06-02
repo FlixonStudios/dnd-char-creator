@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Container, Row, Col} from "react-bootstrap";
+import {Container, Row, Col, FormText, Image, Button} from "react-bootstrap";
 import {SelectClass} from "./SelectClass";
 import {SelectRace} from "./SelectRace";
 import SelectLevel from "./SelectLevel";
@@ -33,6 +33,8 @@ export function Creator({
                             setTraitSelection,traitSelection,
                             setSavingThrows, savingThrows,
                             setLanguages,languages,
+                            setHitDie,hitDie,
+                            setCharImg,charImg,
                             character
                         }) {
 
@@ -68,6 +70,9 @@ export function Creator({
         if(getSavingThrows()!==[]){
             setSavingThrows(getSavingThrows())
         }
+        if(getHitDie()!==0){
+            setHitDie(getHitDie())
+        }
     },[classDetails])
 
     useEffect(()=>{
@@ -88,7 +93,13 @@ export function Creator({
             return []
         }
     }
-
+    function getHitDie(){
+        if(hasKey(classDetails,'hit_die')){
+            return classDetails['hit_die']
+        }else{
+            return 0
+        }
+    }
 
 
     return (
@@ -96,16 +107,22 @@ export function Creator({
             backgroundImage:`url(${bg_img})`,
             backgroundSize:`cover`,
             backgroundPosition:`center`,
-            height: "1440px",
+            height: "100%",
         }}>
 
             <Container style={{backgroundColor:`rgba(0,0,0,0.7)`}}>
                 <Row>
                     <Col lg={8}>
-                        <Row>
-                            <Col>Name:</Col>
-                        </Row>
                         <div name={"key-stats"}>
+                            <Row className={"mt-2 mb-2"}>
+                                <Col md={2}>
+                                    <h4 className={"text-white"}>Name:</h4>
+                                </Col>
+                                <Col md={10}>
+                                    <input type="text" className={"form-control"}
+                                           placeholder={"Type your character's name here..."}/>
+                                </Col>
+                            </Row>
                             <Row>
                                 <SelectRace setRaceSelection={setRaceSelection}
                                             raceSelection={raceSelection}
@@ -125,12 +142,24 @@ export function Creator({
                                 </Col>
                             </Row>
                         </div>
-                        <div name={"portrait"}>
+                        <div name={"Portrait"} className={"mt-2 mb-4"}>
                             <Row className={`d-flex justify-content-center`}>
-                                <h1 className={"text-white"}>Portrait</h1>
+                                <Col md={12} className={"d-flex justify-content-center"}>
+                                    <h4 className={"text-white"}>Portrait</h4>
+                                </Col>
+                                <Col md={12}>
+                                    <Image src={""} />
+                                </Col>
+                                <Col md={10}>
+                                    <input type="text" className={"form-control ml-4 mr-4"}
+                                           placeholder={"Input your own image url here..."}/>
+                                </Col>
+                                <Col md={2}>
+                                    <Button variant={"primary"}>Confirm</Button>
+                                </Col>
                             </Row>
                         </div>
-                        <div name={"secondary-stats"}>
+                        <div name={"Secondary-stats"}>
                             <Row>
                                 <Col  className={`d-flex flex-column align-items-center`}>
                                     <h5 className={"text-white"}>Proficiency</h5>
@@ -138,18 +167,27 @@ export function Creator({
                                                       setLevelProficiency={setLevelProficiency}
                                     />
                                 </Col>
-                                <Col>
+                                <Col className={`d-flex flex-column align-items-center`}>
                                     <h5 className={"text-white"}>Initiative</h5>
+                                    <h5 className={"text-white"}>
+                                        {character['initiative']>0?`+${character['initiative']}`:character['initiative']}
+                                    </h5>
                                 </Col>
-                                <Col>
+                                <Col className={`d-flex flex-column align-items-center`}>
                                     <h5 className={"text-white"}>Armor Class</h5>
+                                    <h5 className={"text-white"}>
+                                        {character['armor-class']>0?`+${character['armor-class']}`:character['armor-class']}
+                                    </h5>
                                 </Col>
-                                <Col>
+                                <Col className={`d-flex flex-column align-items-center`}>
                                     <h5 className={"text-white"}>Hit Points</h5>
+                                    <h5 className={"text-white"}>
+                                        {character['hit-points']>0?`+${character['hit-points']}`:character['hit-points']}
+                                    </h5>
                                 </Col>
                             </Row>
                         </div>
-                        <div name={"ability-scores"}>
+                        <div name={"Ability Scores"}>
                             <Row >
                                 <Col className={`d-flex justify-content-center`} xs={12}>
                                     <h4 className={"text-white"}>Ability Scores</h4>
@@ -270,54 +308,57 @@ export function Creator({
 
                             </Row>
                         </div>
-
-                        <Row>
-                            <Col sm={6} className={"text-white"}>
-                                <h5>Saving Throws</h5>
-                                <DisplaySavingThrow character={character} />
+                        <div name={"Summary"}>
+                            <Row>
+                                <Col sm={6} className={"text-white"}>
+                                    <h5>Saving Throws</h5>
+                                    <DisplaySavingThrow character={character} />
                                 </Col>
-                            <Col sm={6} className={"text-white"}>
-                                <h5>Traits</h5>
-                                <DisplayData list={character['traits']} keyName={'name'}/>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col sm={6} className={"text-white"}>
-                                <h5>Armor</h5>
-                                <DisplayData list={character['armor-proficiencies']} keyName={'name'} />
+                                <Col sm={6} className={"text-white"}>
+                                    <h5>Traits</h5>
+                                    <DisplayData list={character['traits']} keyName={'name'}/>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col sm={6} className={"text-white"}>
+                                    <h5>Armor</h5>
+                                    <DisplayData list={character['armor-proficiencies']} keyName={'name'} />
 
-                            </Col>
-                            <Col sm={6} className={"text-white"}>
-                                <h5>Weapons</h5>
-                                <DisplayData list={character['weapon-proficiencies']} keyName={'name'} />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col sm={6} className={"text-white"}>
-                                <h5>Tools</h5>
-                                <DisplayData list={character['tool-proficiencies']} keyName={'name'}/>
-                            </Col>
-                            <Col sm={6} className={"text-white"}>
-                                <h5>Languages</h5>
-                                <DisplayData list={character['languages']} keyName={'name'}/>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col sm={12} className={"text-white"}>
-                                <h5>Others</h5>
-                            </Col>
-                        </Row>
+                                </Col>
+                                <Col sm={6} className={"text-white"}>
+                                    <h5>Weapons</h5>
+                                    <DisplayData list={character['weapon-proficiencies']} keyName={'name'} />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col sm={6} className={"text-white"}>
+                                    <h5>Tools</h5>
+                                    <DisplayData list={character['tool-proficiencies']} keyName={'name'}/>
+                                </Col>
+                                <Col sm={6} className={"text-white"}>
+                                    <h5>Languages</h5>
+                                    <DisplayData list={character['languages']} keyName={'name'}/>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col sm={12} className={"text-white"}>
+                                    <h5>Others</h5>
+                                </Col>
+                            </Row>
+                        </div>
                     </Col>
                     <Col lg={4}>
-                        <h5 className={"text-white"}>Skill Proficiencies</h5>
-                        <SkillProficiencies
-                            setClassProfSelection={setClassProfSelection}
-                            classProfSelection={classProfSelection}
-                            profSelection={profSelection}
-                            setProfSelection={setProfSelection}
-                            levelProficiency={levelProficiency}
-                            modifierValues={modifierValues}
-                        />
+                        <div name={"Skill Summary"}>
+                            <h5 className={"text-white"}>Skill Proficiencies</h5>
+                            <SkillProficiencies
+                                setClassProfSelection={setClassProfSelection}
+                                classProfSelection={classProfSelection}
+                                profSelection={profSelection}
+                                setProfSelection={setProfSelection}
+                                levelProficiency={levelProficiency}
+                                modifierValues={modifierValues}
+                            />
+                        </div>
                     </Col>
                 </Row>
 
