@@ -3,7 +3,7 @@ import {hasKey} from "../../lib/Func";
 
 export function AbilityModifier({stat,baseAbilitiesSelection,
                                     raceDetails, abilityImprovements=0,
-                                    setModifierValues
+                                    setModifierValues, abilityScore
                                 }) {
     const [modifier, setModifier] = useState(0)
 
@@ -30,7 +30,7 @@ export function AbilityModifier({stat,baseAbilitiesSelection,
         if (stat!==''){
             calculateModifier()
         }
-    },[baseAbilitiesSelection,raceDetails])
+    },[abilityScore])
 
     function calculateAbilityBonus(){
 
@@ -53,17 +53,29 @@ export function AbilityModifier({stat,baseAbilitiesSelection,
         }
     }
 
+    // function calculateModifier(){
+    //     if(baseAbilitiesSelection[stat]){
+    //         let baseScore = baseAbilitiesSelection[stat]
+    //         let raceBonus = calculateAbilityBonus()
+    //
+    //         let finalScore = baseScore + raceBonus + abilityImprovements
+    //
+    //         let findIndex = scoreTable.findIndex((el)=>{
+    //             return(finalScore >= el[0] && finalScore <= el[1])
+    //         })
+    //
+    //         setModifier(scoreTable[findIndex][2])
+    //         setModifierValues(prevState=>({...prevState, ...{[stat]:scoreTable[findIndex][2]}}))
+    //     }else{
+    //
+    //     }
+    // }
     function calculateModifier(){
-        if(baseAbilitiesSelection[stat]){
-            let baseScore = baseAbilitiesSelection[stat]
-            let raceBonus = calculateAbilityBonus()
-
-            let finalScore = baseScore + raceBonus + abilityImprovements
+        if(abilityScore){
 
             let findIndex = scoreTable.findIndex((el)=>{
-                return(finalScore >= el[0] && finalScore <= el[1])
+                return(abilityScore >= el[0] && abilityScore <= el[1])
             })
-
             setModifier(scoreTable[findIndex][2])
             setModifierValues(prevState=>({...prevState, ...{[stat]:scoreTable[findIndex][2]}}))
         }else{

@@ -14,6 +14,7 @@ import LevelProficiency from "./LevelProficiency";
 import SelectTraits from "./SelectTraits";
 import SelectClassProficiencies from "./SelectClassProficiencies";
 import DisplayData from "./DisplayData";
+import {hasKey} from "../../lib/Func";
 
 export function Creator({
                             setRaceSelection,raceSelection,
@@ -47,8 +48,26 @@ export function Creator({
                 setClassDetails(res)
             }).catch(err=>{console.log(err)})
         }
-        setProfSelection(prevState=>({...prevState,...{['race']:false}}))
+        setProfSelection(prevState=>({...prevState,...{['class']:false}}))
     },[classSelection])
+
+    useEffect(()=>{
+
+        if(getRacialAbilityBonus()!==[]){
+            console.log(getRacialAbilityBonus())
+            setRaceAbilityBonus(getRacialAbilityBonus())
+        }
+
+    },[raceDetails])
+
+    function getRacialAbilityBonus(){
+        console.log(raceDetails['ability_bonuses'])
+        if (hasKey(raceDetails,'ability_bonuses')){
+            return raceDetails['ability_bonuses']
+        }else{
+            return []
+        }
+    }
 
     return (
         <div style={{
@@ -122,6 +141,7 @@ export function Creator({
                                                      setModifierValues={setModifierValues}
                                                      raceAbilityBonus={raceAbilityBonus}
                                                      raceDetails={raceDetails}
+                                                     abilityScore={character['str-val']}
                                     />
                                     <SelectBaseAbility stat={"str"}
                                                        setBaseAbilitiesSelection={setBaseAbilitiesSelection}
@@ -239,23 +259,24 @@ export function Creator({
                                 </Col>
                             <Col sm={6} className={"text-white"}>
                                 <h5>Traits</h5>
+                                <DisplayData list={character['traits']} keyName={'name'}/>
                             </Col>
                         </Row>
                         <Row>
                             <Col sm={6} className={"text-white"}>
                                 <h5>Armor</h5>
-                                <DisplayData list={character['armor-proficiencies']} keyName={'index'} />
+                                <DisplayData list={character['armor-proficiencies']} keyName={'name'} />
 
                             </Col>
                             <Col sm={6} className={"text-white"}>
                                 <h5>Weapons</h5>
-                                <DisplayData list={character['weapon-proficiencies']} keyName={'index'} />
+                                <DisplayData list={character['weapon-proficiencies']} keyName={'name'} />
                             </Col>
                         </Row>
                         <Row>
                             <Col sm={6} className={"text-white"}>
                                 <h5>Tools</h5>
-                                <DisplayData list={character['tool-proficiencies']} keyName={'index'}/>
+                                <DisplayData list={character['tool-proficiencies']} keyName={'name'}/>
                             </Col>
                             <Col sm={6} className={"text-white"}>
                                 <h5>Languages</h5>

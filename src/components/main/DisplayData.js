@@ -1,13 +1,17 @@
 import React from 'react';
 
-function DisplayData({list, keyName}) {
+export function DisplayData({list, keyName}) {
 
     function renderList(){
         if (list!==undefined){
             let str = list.map((el)=>(el[keyName])).join()
-            return str
+            return (
+                <p>{str}</p>
+            )
         }else{
-            return ""
+            return (
+                <p>{""}</p>
+            )
         }
     }
     return (

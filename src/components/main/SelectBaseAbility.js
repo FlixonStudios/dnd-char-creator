@@ -8,6 +8,9 @@ export function SelectBaseAbility({stat, setBaseAbilitiesSelection,baseAbilities
     const [active, setActive] = useState(true)
 
     useEffect(()=>{
+        // console.log(`${stat} set to ${base}`)
+        // console.log(roll)
+        // console.log(active)
         setBaseAbilitiesSelection(prevState=>({...prevState,...{[stat]:base}}))
     },[base])
 

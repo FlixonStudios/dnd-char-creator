@@ -11,6 +11,7 @@ export function Dice({setBase, roll, setRoll}) {
         "6": "https://media.geeksforgeeks.org/wp-content/uploads/20200508141006/dice6.png",
     }
     const [active,setActive] = useState(true)
+    //const [finalValue, setFinalValue] = useState(1)
     const myRef = useRef()
 
     useEffect(()=>{
@@ -20,13 +21,14 @@ export function Dice({setBase, roll, setRoll}) {
     function checkForGroupRoll(){
         if (roll){
             myRef.current.click()
-            setRoll(false)
+            setRoll(true)
         }
     }
 
     function rollDice(e) {
         if(active){
             let diceNumber = Math.floor(Math.random() * 6) + 1
+            //setFinalValue(diceNumber)
             e.target.classList.add("dice")
             setTimeout( ()=>{
                 e.target.classList.remove("dice")
@@ -37,6 +39,7 @@ export function Dice({setBase, roll, setRoll}) {
             e.target.style.backgroundImage = `url(${diceImages[diceNumber.toString()]})`
         }
     }
+    //finalValue.toString()
     return (
         <div>
             <Button type={"button"} className={`btn btn-dark`}

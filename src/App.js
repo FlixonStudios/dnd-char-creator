@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {isValidElement, useEffect, useState} from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -7,6 +7,7 @@ import HomeNav from "./components/general/HomeNav";
 import Navigation from "./components/general/Navigation";
 import Creator from "./components/main/Creator";
 import Home from "./components/main/Home";
+import {hasKey} from "./lib/Func";
 
 function App() {
 
@@ -55,17 +56,19 @@ function App() {
     const [classSelection, setClassSelection] = useState(false)
     const [raceSelection, setRaceSelection] = useState(false)
     const [subRaceSelection, setSubRaceSelection] = useState(false)
-    const [raceAbilityBonus, setRaceAbilityBonus] = useState(modifiers)
+    const [raceAbilityBonus, setRaceAbilityBonus] = useState(false)
+    const [baseAbilitiesSelection, setBaseAbilitiesSelection] = useState(modifiers)
     const [levelSelection, setLevelSelection] = useState(false)
     const [levelProficiency, setLevelProficiency] = useState(0)
-    const [baseAbilitiesSelection, setBaseAbilitiesSelection] = useState(modifiers)
     const [profSelection, setProfSelection] = useState(false)
     const [modifierValues, setModifierValues] = useState(modifiers)
     const [traitSelection, setTraitSelection] = useState(false)
     const [savingThrows, setSavingThrows] = useState(modifiers)
 
-    console.log(profSelection)
-    //console.log(traitSelection)
+    //console.log(baseAbilitiesSelection)
+    //console.log(modifierValues)
+    //console.log(profSelection)
+    console.log(traitSelection)
 
     useEffect(()=>{
         dataController()
@@ -78,6 +81,14 @@ function App() {
         proficiencyHandler(weaponProficiencies,'weapon-proficiencies')
         proficiencyHandler([],'tool-proficiencies',"tool")
     },[profSelection])
+
+    useEffect(()=>{
+        traitHandler('traits')
+    },[traitSelection])
+
+    useEffect(()=>{
+        abilityScoreHandler("-val")
+    },[baseAbilitiesSelection, raceAbilityBonus])
 
     function dataController(){
         setCharacter(charData)
@@ -101,7 +112,51 @@ function App() {
         setCharacter(prevState => ({...prevState,...{[keyName]:list}}))
     }
 
+    function traitHandler(keyName){
+        let list = []
+        let filtered = []
+        if(traitSelection){
+            for(let attribute in traitSelection){
+                if(traitSelection[attribute]){
+                    filtered = [...traitSelection[attribute]]
+                    list = [...list, ...filtered]
+                }
+            }
+            setCharacter(prevState => ({...prevState,...{[keyName]:list}}))
+        }
+    }
 
+    function abilityScoreHandler(keyName){
+        let baseAbilityScores = baseAbilitiesSelection
+
+        for(let stat in baseAbilityScores){
+            let value = 0
+            value = baseAbilityScores[stat] + racialAbilityScoreHandler(stat)
+            //console.log(value)
+            setCharacter(prevState => ({...prevState, [`${stat}${keyName}`]:value}))
+        }
+    }
+    function racialAbilityScoreHandler(stat){
+
+        //console.log(raceAbilityBonus)
+        if (raceAbilityBonus){
+            let abilityBonuses = [...raceAbilityBonus]
+            let raceBonus = abilityBonuses.find((el)=> {
+                if(hasKey(el,'ability_score') && hasKey(el, 'bonus')){
+                    return (el['ability_score'].index === stat)
+                }
+            })
+            if(hasKey(raceBonus,'bonus')){
+                return raceBonus['bonus']
+            }else{
+                return 0
+            }
+        }
+    }
+
+    function savingThrowHandler(keyName){
+
+    }
 
   return (
     <BrowserRouter>

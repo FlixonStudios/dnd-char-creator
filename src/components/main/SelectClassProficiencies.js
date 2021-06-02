@@ -6,9 +6,6 @@ function SelectClassProficiencies({classDetails,classSelection, profSelection, s
     const [skillProf, setSkillProf] = useState([])
     const [numOfChoices, setNumOfChoices] = useState(1)
     const [prof, setProf] = useState([])
-    const [savingThrow, setSavingThrow] = useState([])
-    const [spells, setSpells] = useState([])
-    const [hitDice, setHitDice] = useState(0)
 
     let profKey = 'proficiencies'
     let skillProfKey = 'proficiency_choices'
