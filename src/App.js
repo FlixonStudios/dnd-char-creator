@@ -21,12 +21,30 @@ function App() {
     }
 
     const charData = {
-        "str-val": 0,
-        "dex-val": 0,
-        "con-val": 0,
-        "int-val": 0,
-        "wis-val": 0,
-        "cha-val": 0,
+        "ability-scores": {
+            "str": 0,
+            "dex": 0,
+            "con": 0,
+            "int": 0,
+            "wis": 0,
+            "cha": 0,
+        },
+        "saving-throws":{
+            "str": 0,
+            "dex": 0,
+            "con": 0,
+            "int": 0,
+            "wis": 0,
+            "cha": 0,
+        },
+        "ability-modifiers":{
+            "str": 0,
+            "dex": 0,
+            "con": 0,
+            "int": 0,
+            "wis": 0,
+            "cha": 0,
+        },
         "ability-bonus":[],
         "traits":[],
         "saving-throw-bonus":[],
@@ -52,7 +70,7 @@ function App() {
     ]
 
     const [proficiencyData, setProficiencyData] = useState([])
-    const [character, setCharacter] = useState({})
+    const [character, setCharacter] = useState(charData)
     const [classSelection, setClassSelection] = useState(false)
     const [raceSelection, setRaceSelection] = useState(false)
     const [subRaceSelection, setSubRaceSelection] = useState(false)
@@ -63,18 +81,16 @@ function App() {
     const [profSelection, setProfSelection] = useState(false)
     const [modifierValues, setModifierValues] = useState(modifiers)
     const [traitSelection, setTraitSelection] = useState(false)
-    const [savingThrows, setSavingThrows] = useState(modifiers)
+    const [savingThrows, setSavingThrows] = useState([])
+    const [languages, setLanguages] = useState(false)
 
     //console.log(baseAbilitiesSelection)
     //console.log(modifierValues)
     //console.log(profSelection)
-    console.log(traitSelection)
+    //console.log(traitSelection)
+    console.log(languages)
 
-    useEffect(()=>{
-        dataController()
 
-        //console.log(character)
-    },[])
 
     useEffect(()=>{
         proficiencyHandler(armorProficiencies,'armor-proficiencies')
@@ -83,16 +99,21 @@ function App() {
     },[profSelection])
 
     useEffect(()=>{
-        traitHandler('traits')
+        basicHandler('traits',traitSelection)
     },[traitSelection])
 
     useEffect(()=>{
-        abilityScoreHandler("-val")
+        basicHandler('languages', languages)
+    },[languages])
+
+    useEffect(()=>{
+        abilityScoreHandler("ability-scores")
+        savingThrowHandler('saving-throws')
     },[baseAbilitiesSelection, raceAbilityBonus])
 
-    function dataController(){
-        setCharacter(charData)
-    }
+    useEffect(()=>{
+        savingThrowHandler('saving-throws')
+    },[savingThrows, levelProficiency])
 
     function proficiencyHandler(masterArr=[], keyName, keyWord=""){
         let list = []
@@ -111,34 +132,31 @@ function App() {
         }
         setCharacter(prevState => ({...prevState,...{[keyName]:list}}))
     }
-
-    function traitHandler(keyName){
+    function basicHandler(keyName, attributeObject){
         let list = []
         let filtered = []
-        if(traitSelection){
-            for(let attribute in traitSelection){
-                if(traitSelection[attribute]){
-                    filtered = [...traitSelection[attribute]]
+        if(attributeObject){
+            for(let attribute in attributeObject){
+                if(attributeObject[attribute]){
+                    filtered = [...attributeObject[attribute]]
                     list = [...list, ...filtered]
                 }
             }
             setCharacter(prevState => ({...prevState,...{[keyName]:list}}))
         }
     }
-
     function abilityScoreHandler(keyName){
         let baseAbilityScores = baseAbilitiesSelection
-
+        let temp = {...character[keyName]}
         for(let stat in baseAbilityScores){
             let value = 0
             value = baseAbilityScores[stat] + racialAbilityScoreHandler(stat)
-            //console.log(value)
-            setCharacter(prevState => ({...prevState, [`${stat}${keyName}`]:value}))
+            temp[stat] = value
+
+            setCharacter(prevState => ({...prevState, ...{[keyName]:temp}}))
         }
     }
     function racialAbilityScoreHandler(stat){
-
-        //console.log(raceAbilityBonus)
         if (raceAbilityBonus){
             let abilityBonuses = [...raceAbilityBonus]
             let raceBonus = abilityBonuses.find((el)=> {
@@ -153,8 +171,27 @@ function App() {
             }
         }
     }
-
     function savingThrowHandler(keyName){
+        if(modifierValues){
+            let modifierObj = {...modifierValues}
+            let savingThrowsArr = [...savingThrows]
+
+            for(let savingThrowBonus of savingThrowsArr){
+                let stat = savingThrowBonus.index
+                modifierObj[stat] = modifierObj[stat] + levelProficiency
+            }
+            setCharacter(prevState => ({...prevState, ...{[keyName]:modifierObj}}))
+        }
+    }
+    function languageHandler(keyName){
+        let list = []
+        if(languages){
+            for(let attribute in languages){
+                list = [...list, ...languages[attribute]]
+            }
+            setCharacter(prevState => ({...prevState, ...{[keyName]:list} }))
+        }
+
 
     }
 
@@ -192,6 +229,8 @@ function App() {
                              setTraitSelection = {setTraitSelection}
                              savingThrows = {savingThrows}
                              setSavingThrows = {setSavingThrows}
+                             languages = {languages}
+                             setLanguages = {setLanguages}
                              character={character}
                     />
                 </Route>

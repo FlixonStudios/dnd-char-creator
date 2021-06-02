@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {Button, Row, Container} from "react-bootstrap";
 import SelectionBar from "./SelectionBar";
 
-export function GroupOfSelection({list, numOfChoices, defaultChoices, tagDisplay="" , title="" ,tag="",setReturn}) {
+export function GroupOfSelection({list, numOfChoices, defaultChoices, selection,
+                                     tagDisplay="" , title="" ,tag="",setReturn}) {
     const [choicesSelected, setChoicesSelected] = useState([])
     const [confirmed, setConfirmed] = useState(false)
     const [choiceId, setChoiceId] = useState([])
@@ -11,12 +12,12 @@ export function GroupOfSelection({list, numOfChoices, defaultChoices, tagDisplay
 
         setChoicesSelected([])
         setReturn(prevState=>({...prevState,...{[tag]:[]}}))
+        console.log(defaultChoices)
     },[list])
 
     function lockDetails(){
         let temp = [...defaultChoices, ...choicesSelected]
         setReturn(prevState=>({...prevState,...{[tag]:temp}}))
-
         setConfirmed(true)
     }
     function reset(){
@@ -28,7 +29,7 @@ export function GroupOfSelection({list, numOfChoices, defaultChoices, tagDisplay
             return(
                 <>
                     { (title !=="") ? <h5 className={"text-white"}>{title}</h5> : <></>}
-                    {
+                    {defaultChoices.length > 0 ?
                         defaultChoices.map((choice, index)=>(
                             <>
                                 <SelectionBar numOfChoices={0}
@@ -41,9 +42,9 @@ export function GroupOfSelection({list, numOfChoices, defaultChoices, tagDisplay
                                               setChoiceId={setChoiceId}
                                 />
                             </>
-                        ))
+                        )) : <></>
                     }
-                    {
+                    {list.length > 0 ?
                         list.map((choice, index) => (
                                 <>
                                     <SelectionBar numOfChoices={numOfChoices}
@@ -58,7 +59,7 @@ export function GroupOfSelection({list, numOfChoices, defaultChoices, tagDisplay
 
                                 </>
                             )
-                        )
+                        ) : <></>
                     }
                     <Row className={"d-flex justify-content-end"}>
                         <Button variant={"success"} className={"m-1"} type={"submit"}

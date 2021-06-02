@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {hasKey} from "../../lib/Func";
 
-export function AbilityModifier({stat,baseAbilitiesSelection,
-                                    raceDetails, abilityImprovements=0,
-                                    setModifierValues, abilityScore
+export function AbilityModifier({stat, setModifierValues, abilityScore
                                 }) {
     const [modifier, setModifier] = useState(0)
 
@@ -32,44 +30,7 @@ export function AbilityModifier({stat,baseAbilitiesSelection,
         }
     },[abilityScore])
 
-    function calculateAbilityBonus(){
 
-        if (hasKey(raceDetails,'ability_bonuses')){
-            let abilityBonuses = raceDetails['ability_bonuses']
-
-            let raceBonus = abilityBonuses.find((el)=> {
-                if(hasKey(el,'ability_score') && hasKey(el, 'bonus')){
-                    return (el['ability_score'].index === stat)
-                }
-            })
-
-            if(hasKey(raceBonus,'bonus')){
-                return raceBonus['bonus']
-            }else{
-                return 0
-            }
-        }else{
-            return 0
-        }
-    }
-
-    // function calculateModifier(){
-    //     if(baseAbilitiesSelection[stat]){
-    //         let baseScore = baseAbilitiesSelection[stat]
-    //         let raceBonus = calculateAbilityBonus()
-    //
-    //         let finalScore = baseScore + raceBonus + abilityImprovements
-    //
-    //         let findIndex = scoreTable.findIndex((el)=>{
-    //             return(finalScore >= el[0] && finalScore <= el[1])
-    //         })
-    //
-    //         setModifier(scoreTable[findIndex][2])
-    //         setModifierValues(prevState=>({...prevState, ...{[stat]:scoreTable[findIndex][2]}}))
-    //     }else{
-    //
-    //     }
-    // }
     function calculateModifier(){
         if(abilityScore){
 
