@@ -47,11 +47,11 @@ export function Creator({
     const[classDetails, setClassDetails] = useState([])
     const[abilityOverallTips, setAbilityOverallTips] = useState([])
     const[imgUrl,setImgUrl] = useState("")
+    const [saveActive, setSaveActive] = useState(true);
 
     useEffect(()=>{
         getListData(`${RULES}/using-ability-scores`,'').then(res=>{
             parseAbilityData(res['desc'])
-
         }).catch(err=>console.log("Error"))
     },[])
 
@@ -111,13 +111,35 @@ export function Creator({
             return 0
         }
     }
-    function saveCurrentCharacter(){
-        let temp = {...character}
-        setCharacterList(prevState=>([...prevState, temp]))
+    function saveCurrentCharacter(e){
+        if(saveActive){
+            let temp = {...character}
+            e.target.classList.remove("btn-primary")
+            e.target.classList.add("btn-success")
+            e.target.innerText = "Changes Saved"
+            setSaveActive(false)
+            setTimeout(()=>{
+                e.target.classList.remove("btn-success")
+                e.target.classList.add("btn-primary")
+                e.target.innerText = "Save Character"
+                setSaveActive(true)
+            },2000)
 
-        setRaceSelection(false)
-        setClassSelection(false)
-        setLevelSelection(false)
+            setCharacterList(prevState=>([...prevState, temp]))
+            setRaceSelection(false)
+            setClassSelection(false)
+            setLevelSelection(false)
+            setProfSelection(false)
+            setBaseAbilitiesSelection({
+                "str": 0,
+                "dex": 0,
+                "con": 0,
+                "int": 0,
+                "wis": 0,
+                "cha": 0
+            })
+        }
+
 
 
     }
@@ -397,9 +419,10 @@ export function Creator({
                     </Col>
                 </Row>
                 <Row className={"justify-content-end"}>
-                    <Button variant={"success"} className={"mb-3 mr-3"} onClick={saveCurrentCharacter}>
+                    <Button variant={"primary"} className={"mb-3 mr-3"} onClick={(e)=>saveCurrentCharacter(e)}>
                         Save Character
                     </Button>
+
                 </Row>
             </Container>
         </div>

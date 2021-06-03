@@ -10,6 +10,7 @@ import Home from "./components/main/Home";
 import {hasKey} from "./lib/Func";
 import Characters from "./components/main/Characters";
 import test_img from "./img/female_aumaua_x1_lg - Copy.png"
+import banner from "./img/night-sky.jpg"
 
 function App() {
 
@@ -288,10 +289,22 @@ function App() {
   return (
     <BrowserRouter>
         <div style={{backgroundColor:`rgba(71, 20, 20, 1.0)`}}>
-            <Container>
-                <HomeNav/>
-                <Navigation/>
-            </Container>
+            <div style={{
+                backgroundImage:`url(${banner})`,
+                backgroundSize:`cover`,
+                backgroundPosition:`center`,
+                backgroundColor:`rgba(0,0,0,0.7)`,
+                height: "100%",
+            }}>
+
+                <Container >
+                    <HomeNav/>
+                    <Navigation/>
+                </Container>
+            </div>
+            <div style={{backgroundColor:`rgba(0,0,0,0.7)`, height:"10px"}}>
+
+            </div>
             <Switch>
                 <Route path={"/"} exact>
                     <Home />
