@@ -8,6 +8,8 @@ import Navigation from "./components/general/Navigation";
 import Creator from "./components/main/Creator";
 import Home from "./components/main/Home";
 import {hasKey} from "./lib/Func";
+import Characters from "./components/main/Characters";
+import test_img from "./img/female_aumaua_x1_lg - Copy.png"
 
 function App() {
 
@@ -22,7 +24,11 @@ function App() {
 
     const charData = {
         "name":"",
+        "race":"",
+        "class":"",
+        "level":"",
         "img": "",
+        "proficiency":"",
         "ability-scores": {
             "str": 0,
             "dex": 0,
@@ -87,19 +93,18 @@ function App() {
     const [modifierValues, setModifierValues] = useState(modifiers)
     const [traitSelection, setTraitSelection] = useState(false)
     const [savingThrows, setSavingThrows] = useState([])
-    const [hitDie, setHitDie] = useState()
+    const [hitDie, setHitDie] = useState(0)
     const [languages, setLanguages] = useState(false)
-    const [charImg, setCharImg] = useState("")
+    const [charImg, setCharImg] = useState(test_img)
+    const [charName, setCharName] = useState("")
+    const [characterList, setCharacterList] = useState([])
 
-    //console.log(baseAbilitiesSelection)
-    //console.log(modifierValues)
-    //console.log(profSelection)
-    //console.log(traitSelection)
-    //console.log(languages)
-
-
+    // console.log(character['ability-modifiers']['dex'])
+    // console.log(character['initiative'])
+    console.log(characterList)
 
     useEffect(()=>{
+        proficiencyHandler([],'skill-proficiencies',"skill-")
         proficiencyHandler(armorProficiencies,'armor-proficiencies')
         proficiencyHandler(weaponProficiencies,'weapon-proficiencies')
         proficiencyHandler([],'tool-proficiencies',"tool")
@@ -114,40 +119,66 @@ function App() {
     },[languages])
 
     useEffect(()=>{
-
         abilityScoreHandler("ability-scores")
-        savingThrowHandler('saving-throws')
-        calculateInitiative('initiative')
-        calculateArmorClass('armor-class')
-        calculateHitPoints('hit-points')
+        racialAbilityBonusHandler()
     },[baseAbilitiesSelection, raceAbilityBonus])
 
     useEffect(()=>{
         modifierHandler('ability-modifiers')
-        calculateHitPoints('hit-points')
+        calculateInitiative('initiative')
+        calculateArmorClass('armor-class')
+        savingThrowHandler('saving-throws')
     },[modifierValues])
 
     useEffect(()=>{
         calculateHitPoints('hit-points')
-    },[classSelection, levelSelection])
+    },[hitDie, modifierValues, levelSelection])
 
     useEffect(()=>{
         savingThrowHandler('saving-throws')
     },[savingThrows, levelProficiency])
 
+    useEffect(()=>{
+        setCharacter(prevState => ({...prevState,...{['name']:charName}}))
+    },[charName])
+    useEffect(()=>{
+        setCharacter(prevState => ({...prevState,...{['img']:charImg}}))
+    },[charImg])
+    useEffect(()=>{
+        if(levelSelection){
+            setCharacter(prevState => ({...prevState,...{['level']:levelSelection}}))
+        }
+    },[levelSelection])
+    useEffect(()=>{
+        if(classSelection){
+            setCharacter(prevState => ({...prevState,...{['class']:classSelection}}))
+        }
+    },[classSelection])
+    useEffect(()=>{
+        if(raceSelection){
+            setCharacter(prevState => ({...prevState,...{['race']:raceSelection}}))
+        }
+    },[raceSelection])
+    useEffect(()=>{
+        if(levelProficiency){
+            setCharacter(prevState => ({...prevState,...{['proficiency']:levelProficiency}}))
+        }
+    },[levelProficiency])
+
     function proficiencyHandler(masterArr=[], keyName, keyWord=""){
-        let list = []
-        let filtered = []
+        let list = []; let filtered = []; let noDuplicate = []
         for(let attribute in profSelection){
             if(profSelection[attribute]){
                 if(keyWord===""){
                     filtered = profSelection[attribute].filter((el)=>(masterArr.includes(el.index)))
                 }else{
                     filtered = profSelection[attribute].filter((el)=>(el.index.includes(keyWord)))
-                    //console.log(filtered)
                 }
-
-                list = [...list, ...filtered]
+                noDuplicate = filtered.filter((el)=>{
+                    let found = list.findIndex((existing)=>(existing['url']===el['url']))
+                    return(found < 0)
+                })
+                list = [...list, ...noDuplicate]
             }
         }
         setCharacter(prevState => ({...prevState,...{[keyName]:list}}))
@@ -168,11 +199,11 @@ function App() {
     function abilityScoreHandler(keyName){
         let baseAbilityScores = baseAbilitiesSelection
         let temp = {...character[keyName]}
+
         for(let stat in baseAbilityScores){
             let value = 0
             value = baseAbilityScores[stat] + racialAbilityScoreHandler(stat)
             temp[stat] = value
-
             setCharacter(prevState => ({...prevState, ...{[keyName]:temp}}))
         }
     }
@@ -191,6 +222,19 @@ function App() {
             }
         }
     }
+    function racialAbilityBonusHandler(){
+        let racialAbilityBonusArr = []
+        if(raceAbilityBonus){
+            racialAbilityBonusArr = raceAbilityBonus.map((el)=>{
+                console.log(el['ability_score'])
+                console.log({['bonus']:el['bonus']})
+                let temp = {...el['ability_score'],...{['bonus']:el['bonus']}}
+                console.log(temp)
+                return(temp)
+            })
+            setCharacter(prevState => ({...prevState, ...{['ability-bonus']:racialAbilityBonusArr}}))
+        }
+    }
     function savingThrowHandler(keyName){
         if(modifierValues){
             let modifierObj = {...modifierValues}
@@ -200,16 +244,27 @@ function App() {
                 let stat = savingThrowBonus.index
                 modifierObj[stat] = modifierObj[stat] + levelProficiency
             }
+            setCharacter(prevState => ({...prevState,...{['saving-throw-bonus']:savingThrowsArr}}))
             setCharacter(prevState => ({...prevState, ...{[keyName]:modifierObj}}))
         }
     }
     function calculateInitiative(keyName){
-        let base = character['ability-modifiers']['dex']
+        let base
+        if(modifierValues['dex'] || modifierValues['dex'] === 0){
+            base = modifierValues['dex']
+        }else{
+            base = 0
+        }
         let finalValue = base
         setCharacter(prevState => ({...prevState, ...{[keyName]:finalValue}}))
     }
     function calculateArmorClass(keyName){
-        let base = character['ability-modifiers']['dex']
+        let base
+        if(modifierValues['dex'] || modifierValues['dex'] === 0){
+            base = modifierValues['dex']
+        }else{
+            base = 0
+        }
         let finalValue = base
         setCharacter(prevState => ({...prevState, ...{[keyName]:finalValue}}))
     }
@@ -218,7 +273,7 @@ function App() {
         if(classSelection){
             base = hitDie
         }
-        let modifier = character['ability-modifiers']['con']
+        let modifier = modifierValues['con']
         if (levelSelection || levelSelection===undefined){
             for(let i = 1; i < levelSelection; i++){
                 levelGain += (Math.floor(Math.random()*10)+1 + modifier)
@@ -274,11 +329,17 @@ function App() {
                              setCharImg={setCharImg}
                              charImg={charImg}
                              character={character}
+                             setCharName={setCharName}
+                             setCharacterList={setCharacterList}
                     />
+                </Route>
+                <Route path={"/characters"} exact>
+                    <Characters characterList={characterList}/>
                 </Route>
                 <Route path={"/home"} exact>
                     <Home />
                 </Route>
+
             </Switch>
         </div>
     </BrowserRouter>

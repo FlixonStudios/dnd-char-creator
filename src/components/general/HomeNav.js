@@ -8,14 +8,6 @@ export function HomeNav(props) {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true)
 
-
-    useEffect(()=>{
-
-    },[])
-    useEffect(()=>{
-        console.log(users)
-    },[users])
-
     return (
             <Row>
                 <Col md={6}>

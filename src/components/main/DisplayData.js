@@ -1,10 +1,11 @@
 import React from 'react';
 
-export function DisplayData({list, keyName}) {
+export function DisplayData({list, keyName, append=""}) {
 
     function renderList(){
         if (list!==undefined){
-            let str = list.map((el)=>(el[keyName])).join(", ")
+
+            let str = list.map((el)=>(`${el[keyName]}${append}`)).join(", ")
             return (
                 <p>{str}</p>
             )

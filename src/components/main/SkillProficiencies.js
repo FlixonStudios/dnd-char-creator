@@ -40,10 +40,16 @@ export function SkillProficiencies({profSelection, levelProficiency=0, modifierV
         if(profSelection){
             for(let detail in profSelection){
                 if(profSelection[detail]){
+                    //let skillProfs = profSelection[detail].map(())
                     let skillProfs = profSelection[detail].filter((el)=>{
-                        return(el.index.substr(0,6) === "skill-")
+                        return((el.index.substr(0,6) === "skill-"))
                     })
-                    newSkillProf = [...newSkillProf,...skillProfs]
+                    //console.log(newSkillProf)
+                    let nonDuplicatedSkills = skillProfs.filter((el)=>{
+                        return (!newSkillProf.includes(el))
+                    })
+                    //console.log(nonDuplicatedSkills)
+                    newSkillProf = [...newSkillProf,...nonDuplicatedSkills]
                 }
             }
             setNewProf(newSkillProf)
@@ -66,8 +72,10 @@ export function SkillProficiencies({profSelection, levelProficiency=0, modifierV
                     return(skillIndex===el[0])
                 })
                 if (findIndex >= 0){
-                    addedSkillProfArr[findIndex][1] = true
-                    addedSkillProfArr[findIndex][3] += levelProficiency
+                    if (addedSkillProfArr[findIndex][1]===false){
+                        addedSkillProfArr[findIndex][1] = true
+                        addedSkillProfArr[findIndex][3] += levelProficiency
+                    }
                 }
             }
             return addedSkillProfArr
@@ -98,7 +106,7 @@ export function SkillProficiencies({profSelection, levelProficiency=0, modifierV
         <div>
             {
                 skillProf.map((skill,index)=>(
-                    <Row>
+                    <Row key={index}>
                         <Col xs={3} >{
                                 renderProfIcon(skill[1])
                         }</Col>

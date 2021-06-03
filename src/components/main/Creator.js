@@ -16,8 +16,8 @@ import SelectClassProficiencies from "./SelectClassProficiencies";
 import DisplayData from "./DisplayData";
 import {hasKey} from "../../lib/Func";
 import DisplaySavingThrow from "./DisplaySavingThrow";
-import SelectionController from "./SelectionController";
 import SelectLanguages from "./SelectLanguages";
+
 
 export function Creator({
                             setRaceSelection,raceSelection,
@@ -35,13 +35,16 @@ export function Creator({
                             setLanguages,languages,
                             setHitDie,hitDie,
                             setCharImg,charImg,
-                            character
+                            setCharName,
+                            character,
+                            setCharacterList
                         }) {
 
     const abilityKey = 'ability-scores'
 
     const[raceDetails, setRaceDetails] = useState([])
     const[classDetails, setClassDetails] = useState([])
+    const[imgUrl,setImgUrl] = useState("")
 
     useEffect(()=>{
         if(raceSelection){
@@ -70,14 +73,9 @@ export function Creator({
         if(getSavingThrows()!==[]){
             setSavingThrows(getSavingThrows())
         }
-        if(getHitDie()!==0){
-            setHitDie(getHitDie())
-        }
+        setHitDie(getHitDie())
     },[classDetails])
 
-    useEffect(()=>{
-
-    },[languages, traitSelection])
 
     function getRacialAbilityBonus(){
         if (hasKey(raceDetails,'ability_bonuses')){
@@ -100,7 +98,18 @@ export function Creator({
             return 0
         }
     }
+    function saveCurrentCharacter(){
+        let temp = {...character}
 
+        setCharacterList(prevState=>([...prevState, temp]))
+    }
+    function saveCharName(){
+
+    }
+    function change(callback,e){
+        //console.log(e.target.value)
+        callback(prevState=>(e.target.value))
+    }
 
     return (
         <div style={{
@@ -120,7 +129,9 @@ export function Creator({
                                 </Col>
                                 <Col md={10}>
                                     <input type="text" className={"form-control"}
-                                           placeholder={"Type your character's name here..."}/>
+                                           placeholder={"Type your character's name here..."}
+                                           name={"name"} onChange={(e)=>change(setCharName,e)}
+                                    />
                                 </Col>
                             </Row>
                             <Row>
@@ -148,14 +159,21 @@ export function Creator({
                                     <h4 className={"text-white"}>Portrait</h4>
                                 </Col>
                                 <Col md={12}>
-                                    <Image src={""} />
+                                    <div className={"d-flex justify-content-center align-items-center m-3"}
+
+                                    >
+                                        <Image src={charImg} style={{height:"350px"}} fluid/>
+                                    </div>
                                 </Col>
                                 <Col md={10}>
                                     <input type="text" className={"form-control ml-4 mr-4"}
-                                           placeholder={"Input your own image url here..."}/>
+                                           placeholder={"Input your own image url here..."}
+                                           name={"url"}
+                                           onChange={(e)=>change(setImgUrl,e)}
+                                    />
                                 </Col>
                                 <Col md={2}>
-                                    <Button variant={"primary"}>Confirm</Button>
+                                    <Button variant={"primary"} onClick={()=>setCharImg(imgUrl)}>Confirm</Button>
                                 </Col>
                             </Row>
                         </div>
@@ -171,6 +189,7 @@ export function Creator({
                                     <h5 className={"text-white"}>Initiative</h5>
                                     <h5 className={"text-white"}>
                                         {character['initiative']>0?`+${character['initiative']}`:character['initiative']}
+
                                     </h5>
                                 </Col>
                                 <Col className={`d-flex flex-column align-items-center`}>
@@ -182,7 +201,7 @@ export function Creator({
                                 <Col className={`d-flex flex-column align-items-center`}>
                                     <h5 className={"text-white"}>Hit Points</h5>
                                     <h5 className={"text-white"}>
-                                        {character['hit-points']>0?`+${character['hit-points']}`:character['hit-points']}
+                                        {character['hit-points']}
                                     </h5>
                                 </Col>
                             </Row>
@@ -361,7 +380,9 @@ export function Creator({
                         </div>
                     </Col>
                 </Row>
-
+                <Row className={"justify-content-end"}>
+                    <Button variant={"success"} onClick={saveCurrentCharacter}>Save</Button>
+                </Row>
             </Container>
         </div>
 

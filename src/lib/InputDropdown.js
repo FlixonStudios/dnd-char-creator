@@ -32,6 +32,7 @@ export function InputDropdown({title, list, keyName, status, selection, setSelec
         }
     }
     function changeToSelected(index){
+
         setSelection(list[index][keyName])
     }
 

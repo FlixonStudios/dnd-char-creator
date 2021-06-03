@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Row, Container} from "react-bootstrap";
 import SelectionBar from "./SelectionBar";
+import { v4 as uuidv4 } from 'uuid';
 
 export function GroupOfSelection({list, numOfChoices, defaultChoices, selection,
                                      tagDisplay="" , title="" ,tag="",setReturn}) {
@@ -31,7 +32,7 @@ export function GroupOfSelection({list, numOfChoices, defaultChoices, selection,
                         defaultChoices.map((choice, index)=>(
                             <>
                                 <SelectionBar numOfChoices={0}
-                                              key={index}
+                                              key={uuidv4()}
                                               id={`${choice.index}-${index}-${numOfChoices}`}
                                               choice={choice}
                                               setChoicesSelected={setChoicesSelected}
@@ -46,7 +47,7 @@ export function GroupOfSelection({list, numOfChoices, defaultChoices, selection,
                         list.map((choice, index) => (
                                 <>
                                     <SelectionBar numOfChoices={numOfChoices}
-                                                  key={index}
+                                                  key={uuidv4()}
                                                   id={`${choice.index}-${index}-${numOfChoices}`}
                                                   choice={choice}
                                                   setChoicesSelected={setChoicesSelected}

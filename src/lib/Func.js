@@ -1,6 +1,9 @@
-// import firebase from "./firebase"
 import { v4 as uuidv4 } from 'uuid';
+
+// import firebase from "./firebase"
 // const db = firebase.firestore()
+
+
 const usersColl = "users"
 const accountInfoDoc = "account-info"
 
