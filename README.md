@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# Welcome to the D&D Charactor Creator App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Homepage
 
-In the project directory, you can run:
+When you access the site, you'll be brought to the Homepage:
 
-### `npm start`
+![Image of Home](https://git.generalassemb.ly/chiakaiming/dnd-char-creator/blob/master/src/img/for-readme/home.PNG)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Here, you can read a brief summary of what D&D is about and how its played. 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Once you're done, click the "Character Creator" link near the top to create your first character!
 
-### `npm test`
+## Character Creator
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Image of character creator link](https://git.generalassemb.ly/chiakaiming/dnd-char-creator/blob/master/src/img/for-readme/home-select-char-creator.png)
 
-### `npm run build`
+You'll land on the following Character Creator Screen, cool right?
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Image of character creator](https://git.generalassemb.ly/chiakaiming/dnd-char-creator/blob/master/src/img/for-readme/char-creator.PNG)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The following is just a quick walkthrough of how to go about creating your character:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Image of creator step 1](https://git.generalassemb.ly/chiakaiming/dnd-char-creator/blob/master/src/img/for-readme/char-creator-pt-1.png)
 
-### `npm run eject`
+1. First, type the name of your new character!
+2. Then use the dropdown menu under "Race", "Class" and "Level" to select your character's race, class and starting level respectively.
+3. Don't worry about these for the moment, these are your character's skill proficiencies and are automatically calculated based on your choices later
+4. Here you will preview your character portrait. You'll see the default image as a reference for the recommended aspect ratio. If you have the link to your own image, paste it into the input field and hit the "Confirm" button - your image should replace the default image!
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Now, onwards to part 2!
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![Image of creator step 2](https://git.generalassemb.ly/chiakaiming/dnd-char-creator/blob/master/src/img/for-readme/char-creator2-pt-2.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+5. Don't worry about these stats "Proficiency", "Initiative", "Armor Class" and "Hit Points" these are also automatically calculated
+6. Have fun with the Dice! Press the "Roll" button to generate your stats (the smaller number). Depending on the value, these will translate into your Modifiers (which are the bigger numbers just belows each of the STR, DEX etc.). Careful! You can only roll once!
+7. Depending on what you selected for your Race and Class, select your starting proficiencies! If you still see a "Select" button, it means you still can choose more proficiencies. Some proficiencies are provided by default, indicated by the "Default" button - you don't need to select them and are just there for you to know. Hit the "Confirm" button when you are done!
+8. Note that once you hit the limit for the proficiencies the other buttons will be disabled. Click on the "Selected" button to deselect it and choose another proficiency if you need to.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Just one more push, lets go!!!
 
-## Learn More
+![Image of creator step 3](https://git.generalassemb.ly/chiakaiming/dnd-char-creator/blob/master/src/img/for-readme/char-creator3-pt-3.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+9. By now you should see the skill proficiency table update, your selected proficiencies should also be reflected here (applying your proficiency bonus in 5. and the Modifiers in 6. to the final score - Bigger is better! Nothing to do here, lets move on..
+10. After clicking "Confirm" in 7. the selections will minimise for your viewing convenience, you can click on these buttons to view/edit your selections. Take note, if you go back and change your Race or Class, you may have to reopen the selections to selects the new proficiencies.
+11. Here is a quick reference to your Saving Throws, these are automatic and need no action on your part.
+12. As you make your selections in 7., your choices will be summarised here for your ease of reference.
+13. Alright, last step, hit that "Save Character" button to lock in your character. Congratulations, you've made your first D&D Character :)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Character List
 
-### Code Splitting
+Now, to view your handiwork:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![Image of creator step 3](https://git.generalassemb.ly/chiakaiming/dnd-char-creator/blob/master/src/img/for-readme/characters.PNG)
 
-### Analyzing the Bundle Size
+Characters you create will be displayed over here, from oldest to newest. For now, this is a view-only page. Take note, as this is still WIP, if you refresh your page your characters will be lost :(
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Well, that's all for now. Hope your had fun creating your D&D character!
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Made thanks to : http://www.dnd5eapi.co/
+Disclaimer: I may have gotten some mechanics wrongly, apologise in advance.
