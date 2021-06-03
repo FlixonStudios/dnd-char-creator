@@ -14,12 +14,12 @@ import test_img from "./img/female_aumaua_x1_lg - Copy.png"
 function App() {
 
     const modifiers = {
-        "str": false,
-        "dex": false,
-        "con": false,
-        "int": false,
-        "wis": false,
-        "cha": false
+        "str": 0,
+        "dex": 0,
+        "con": 0,
+        "int": 0,
+        "wis": 0,
+        "cha": 0
     }
 
     const charData = {
@@ -226,10 +226,7 @@ function App() {
         let racialAbilityBonusArr = []
         if(raceAbilityBonus){
             racialAbilityBonusArr = raceAbilityBonus.map((el)=>{
-                console.log(el['ability_score'])
-                console.log({['bonus']:el['bonus']})
                 let temp = {...el['ability_score'],...{['bonus']:el['bonus']}}
-                console.log(temp)
                 return(temp)
             })
             setCharacter(prevState => ({...prevState, ...{['ability-bonus']:racialAbilityBonusArr}}))

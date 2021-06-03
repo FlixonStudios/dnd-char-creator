@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {RACES} from "../../lib/Api";
 import InputDropdown from "../../lib/InputDropdown";
-import {getListData} from "../../lib/GetArrayData";
+import {getListData} from "../../lib/GetData";
 import {SelectSubRace} from "./SelectSubRace";
-import {Col} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
+import MyToolTip from "../general/MyToolTip";
 
 export function SelectRace({setRaceSelection, raceSelection,
                                setSubRaceSelection, subRaceSelection}) {
@@ -24,13 +25,19 @@ export function SelectRace({setRaceSelection, raceSelection,
     return (
         <>
             <Col md={3}>
-                <h5 className={"text-white"}>Race</h5>
-                <InputDropdown list={raceList}
-                               title={"Race"}
-                               keyName={"name"}
-                               status={raceStatus}
-                               selection={raceSelection}
-                               setSelection={setRaceSelection}/>
+                <h5 className={"text-white"}>Race
+
+                </h5>
+                <Row className={"d-flex justify-content-center align-items-center"}>
+                    <InputDropdown list={raceList}
+                                   title={"Race"}
+                                   keyName={"name"}
+                                   status={raceStatus}
+                                   selection={raceSelection}
+                                   setSelection={setRaceSelection}/>
+                    {raceSelection && <MyToolTip url={`${RACES}/${raceSelection.toLowerCase()}`} keyName={"alignment"} title={raceSelection}/>}
+                </Row>
+
             </Col>
 
             {

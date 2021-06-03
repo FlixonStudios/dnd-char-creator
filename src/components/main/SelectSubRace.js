@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import InputDropdown from "../../lib/InputDropdown";
+import {Row} from "react-bootstrap";
 
 export function SelectSubRace({setSubRaceSelection, subRaceSelection, subRaceList}) {
 
@@ -13,12 +14,15 @@ export function SelectSubRace({setSubRaceSelection, subRaceSelection, subRaceLis
     return (
         <>
             <h5 className={"text-white"}>Subrace</h5>
+
             <InputDropdown list={subRaceList}
                            title={"SubRace"}
                            keyName={"name"}
                            status={subRaceStatus}
                            selection={subRaceSelection}
                            setSelection={setSubRaceSelection}/>
+
+
         </>
 
     );

@@ -18,7 +18,7 @@ export function HomeNav(props) {
                 </Col>
                 <Col md={2}></Col>
                 <Col md={4} className={"d-flex align-items-center justify-content-end"}>
-                    <DropdownButton title={"Login/Register"} variant={"primary"} as={"button-group"}>
+                    <DropdownButton title={"Login/Register"} variant={"secondary"} as={"button-group"} disabled>
                     <Form className={"m-2"}>
                         <FormLabel>Email Address</FormLabel>
                         <input type={"email"} className={"form-control"} placeholder={"email@example.com"}/>

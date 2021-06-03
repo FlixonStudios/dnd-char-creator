@@ -7,8 +7,8 @@ import SelectBaseAbility from "./SelectBaseAbility";
 import SkillProficiencies from "./SkillProficiencies";
 import bg_img from "../../img/dnd-bg.jpg";
 import SelectRaceProficiencies from "./SelectRaceProficiencies";
-import {getListData} from "../../lib/GetArrayData";
-import {CLASSES, RACES} from "../../lib/Api";
+import {getListData} from "../../lib/GetData";
+import {CLASSES, RACES, RULE_SECTIONS, RULES} from "../../lib/Api";
 import AbilityModifier from "./AbilityModifier";
 import LevelProficiency from "./LevelProficiency";
 import SelectTraits from "./SelectTraits";
@@ -17,6 +17,7 @@ import DisplayData from "./DisplayData";
 import {hasKey} from "../../lib/Func";
 import DisplaySavingThrow from "./DisplaySavingThrow";
 import SelectLanguages from "./SelectLanguages";
+import MyToolTip from "../general/MyToolTip";
 
 
 export function Creator({
@@ -44,7 +45,15 @@ export function Creator({
 
     const[raceDetails, setRaceDetails] = useState([])
     const[classDetails, setClassDetails] = useState([])
+    const[abilityOverallTips, setAbilityOverallTips] = useState([])
     const[imgUrl,setImgUrl] = useState("")
+
+    useEffect(()=>{
+        getListData(`${RULES}/using-ability-scores`,'').then(res=>{
+            parseAbilityData(res['desc'])
+
+        }).catch(err=>console.log("Error"))
+    },[])
 
     useEffect(()=>{
         if(raceSelection){
@@ -76,6 +85,10 @@ export function Creator({
         setHitDie(getHitDie())
     },[classDetails])
 
+    function parseAbilityData(str){
+        let temp = str.split('\n\n')
+        setAbilityOverallTips(temp)
+    }
 
     function getRacialAbilityBonus(){
         if (hasKey(raceDetails,'ability_bonuses')){
@@ -100,10 +113,12 @@ export function Creator({
     }
     function saveCurrentCharacter(){
         let temp = {...character}
-
         setCharacterList(prevState=>([...prevState, temp]))
-    }
-    function saveCharName(){
+
+        setRaceSelection(false)
+        setClassSelection(false)
+        setLevelSelection(false)
+
 
     }
     function change(callback,e){
@@ -210,6 +225,7 @@ export function Creator({
                             <Row >
                                 <Col className={`d-flex justify-content-center`} xs={12}>
                                     <h4 className={"text-white"}>Ability Scores</h4>
+                                    <MyToolTip title={abilityOverallTips[0]} custom={abilityOverallTips[2]}/>
                                 </Col>
                             </Row>
                             <Row>
@@ -381,7 +397,9 @@ export function Creator({
                     </Col>
                 </Row>
                 <Row className={"justify-content-end"}>
-                    <Button variant={"success"} onClick={saveCurrentCharacter}>Save</Button>
+                    <Button variant={"success"} className={"mb-3 mr-3"} onClick={saveCurrentCharacter}>
+                        Save Character
+                    </Button>
                 </Row>
             </Container>
         </div>

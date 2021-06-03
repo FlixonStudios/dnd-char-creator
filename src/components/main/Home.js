@@ -2,21 +2,21 @@ import React, {useEffect, useState} from 'react';
 import bg_img from "../../img/dnd-home-img.jpg";
 import {Col, Container, Row} from "react-bootstrap";
 import axios from "axios";
-import {getListData} from "../../lib/GetArrayData";
+import {getListData} from "../../lib/GetData";
 import {RULE_SECTIONS} from "../../lib/Api";
 import {hasKey} from "../../lib/Func";
 
 export function Home(props) {
 
     const DND_OVERVIEW = 'The core of D&D is storytelling. You and your friends tell a story together, guiding your heroes through quests for treasure, battles with deadly foes, daring rescues, courtly intrigue, and much more. You can also explore the world of Dungeons & Dragons through any of the novels written by its fantasy authors, as well as engaging board games and immersive video games. All of these stories are part of D&D.'
-
+    const DND_RESULTS = 'Describing the results often leads to another decision point, which brings the flow of the game right back to step 1. This pattern holds whether the adventurers are cautiously exploring a ruin, talking to a devious prince, or locked in mortal combat against a dragon.'
     const [homeDetails, setHomeDetails] = useState()
     const [environment, setEnvironment] = useState([])
+    const [combat, setCombat] = useState()
     const environmentUrl = 'the-environment'
 
     useEffect(()=>{
         getListData(`${RULE_SECTIONS}/${environmentUrl}`,'desc').then((res)=>{
-
             parseEnvironmentData(res)
         }).catch(err=>console.log(err))
     },[])
@@ -135,6 +135,11 @@ export function Home(props) {
                         <Row>
                             <Col md={12}>
                                 <h2 className={"text-white text-center"}>Results</h2>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={12}>
+                                <p className={"text-white text-center"}>{DND_OVERVIEW}</p>
                             </Col>
                         </Row>
                     </div>
