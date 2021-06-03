@@ -50,11 +50,11 @@ function SelectTraits({raceDetails, raceSelection,traitSelection, setTraitSelect
     }
 
     return (
-        <div>
+        <>
             {
                 renderStartTraitOptions()
             }
-        </div>
+        </>
     );
 }
 

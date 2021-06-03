@@ -23,10 +23,8 @@ export function SkillProficiencies({profSelection, levelProficiency=0, modifierV
         ["survival",false,'wis',0,"Survival"],
     ]
     const [skillProf, setSkillProf] = useState(skills)
-    const [modifiers, setModifiers] = useState(modifierValues)
     const [newProf, setNewProf] = useState([])
     useEffect(()=>{
-        //setSkillProf(skills)
         lookForSkillProf()
     },[profSelection])
 
@@ -36,20 +34,14 @@ export function SkillProficiencies({profSelection, levelProficiency=0, modifierV
 
     function lookForSkillProf(){
         let newSkillProf = []
-
         if(profSelection){
             for(let detail in profSelection){
                 if(profSelection[detail]){
-                    //let skillProfs = profSelection[detail].map(())
                     let skillProfs = profSelection[detail].filter((el)=>{
                         return((el.index.substr(0,6) === "skill-"))
                     })
-                    //console.log(newSkillProf)
-                    let nonDuplicatedSkills = skillProfs.filter((el)=>{
-                        return (!newSkillProf.includes(el))
-                    })
-                    //console.log(nonDuplicatedSkills)
-                    newSkillProf = [...newSkillProf,...nonDuplicatedSkills]
+
+                    newSkillProf = [...newSkillProf,...skillProfs]
                 }
             }
             setNewProf(newSkillProf)

@@ -12,7 +12,7 @@ export function GroupOfSelection({list, numOfChoices, defaultChoices, selection,
     useEffect(()=>{
         setChoicesSelected([])
         setReturn(prevState=>({...prevState,...{[tag]:[]}}))
-    },[list])
+    },[list,setReturn,tag])
 
     function lockDetails(){
         let temp = [...defaultChoices, ...choicesSelected]
@@ -47,7 +47,7 @@ export function GroupOfSelection({list, numOfChoices, defaultChoices, selection,
                         list.map((choice, index) => (
                                 <>
                                     <SelectionBar numOfChoices={numOfChoices}
-                                                  key={uuidv4()}
+                                                  key={`${uuidv4()}-1`}
                                                   id={`${choice.index}-${index}-${numOfChoices}`}
                                                   choice={choice}
                                                   setChoicesSelected={setChoicesSelected}

@@ -44,12 +44,11 @@ function SelectRaceProficiencies({raceDetails, raceSelection,profSelection,setPr
     }
 
     return (
-        <div>
-
+        <>
             {
                 renderStartProfOptions()
             }
-        </div>
+        </>
     );
 }
 

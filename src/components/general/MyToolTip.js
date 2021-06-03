@@ -1,30 +1,68 @@
 import React, {useEffect, useState} from 'react';
-import {Popover, OverlayTrigger, Button, Image} from "react-bootstrap";
+import {Popover, OverlayTrigger, Image} from "react-bootstrap";
 import tooltip_img from "../../img/tooltip.png"
 import {getStringData} from "../../lib/GetData";
+import {EQUIPMENT, SKILLS} from "../../lib/Api";
 
-export function MyToolTip({url, keyName="", title, custom="",
+export function MyToolTip({url="", keyName="", title, custom="", dependentData, type="",
                               defaultTitle="Title Loading", defaultMain="Loading..."}) {
 
     const [main, setMain] = useState("")
     //console.log(url)
     useEffect(()=>{
-        if (custom===""){
-            getStringData(url).then(res=>{
-                if(keyName===""){
-                    setMain(res)
+            console.log(url)
+
+            if (custom==="" && url!==""){
+                if(type==="skill"){
+                    renderSkillTooltip()
+                }else if(type==="equipment"){
+                    renderToolTooltip()
                 }else{
-                    setMain(res[keyName])
+                    getStringData(url).then(res => {
+                        if (keyName === "") {
+                            setMain(res)
+                        } else {
+                            setMain(res[keyName])
+                        }
+                    }).catch(err => {
+                        setMain("Error on getting data")
+                    })
                 }
-            }).catch(err=>{
+            }else{
+                setMain(custom)
+            }
+
+
+
+    },[dependentData])
+
+    function renderSkillTooltip(){
+        let newUrl = ""
+        let parsedUrlArr = url.split('/')
+        if (parsedUrlArr[parsedUrlArr.length-2]==='proficiencies'){
+            let proficiency = parsedUrlArr[parsedUrlArr.length-1]
+            let skill = proficiency.substring(6, proficiency.length)
+            newUrl = `${SKILLS}/${skill}`
+            getStringData(newUrl).then(res => {
+                setMain(res['desc'])
+            }).catch(err => {
                 setMain("Error on getting data")
             })
-        }else{
-            setMain(custom)
         }
-
-    },[url])
-
+    }
+    function renderToolTooltip(){
+        let newUrl = ""
+        let parsedUrlArr = url.split('/')
+        if (parsedUrlArr[parsedUrlArr.length-2]==='proficiencies'){
+            let tool = parsedUrlArr[parsedUrlArr.length-1]
+            newUrl = `${EQUIPMENT}/${tool}`
+            getStringData(newUrl).then(res => {
+                setMain(res['desc'])
+            }).catch(err => {
+                setMain("Error on getting data")
+            })
+        }
+    }
 
     const popover = (
         <Popover id="popover-basic">

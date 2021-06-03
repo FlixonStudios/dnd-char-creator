@@ -1,4 +1,4 @@
-import React, {isValidElement, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -13,7 +13,6 @@ import test_img from "./img/female_aumaua_x1_lg - Copy.png"
 import banner from "./img/night-sky.jpg"
 
 function App() {
-
     const modifiers = {
         "str": 0,
         "dex": 0,
@@ -22,7 +21,14 @@ function App() {
         "wis": 0,
         "cha": 0
     }
-
+    const DICE_ROLL = {
+        "str": false,
+        "dex": false,
+        "con": false,
+        "int": false,
+        "wis": false,
+        "cha": false
+    }
     const charData = {
         "name":"",
         "race":"",
@@ -67,7 +73,6 @@ function App() {
         "languages":[],
         "uncategorised":[]
     }
-
     const armorProficiencies = [
         "all-armor","studded-leather","chain-mail","chain-shirt","half-plate",
         "heavy-armor","hide","leather","light-armor","medium-armor","padded","plate",
@@ -81,13 +86,13 @@ function App() {
         "quarterstaffs","sickles", "spears","simple-weapons","martial-weapons"
     ]
 
-    const [proficiencyData, setProficiencyData] = useState([])
     const [character, setCharacter] = useState(charData)
     const [classSelection, setClassSelection] = useState(false)
     const [raceSelection, setRaceSelection] = useState(false)
     const [subRaceSelection, setSubRaceSelection] = useState(false)
     const [raceAbilityBonus, setRaceAbilityBonus] = useState(false)
     const [baseAbilitiesSelection, setBaseAbilitiesSelection] = useState(modifiers)
+    const [diceRoll, setDiceRoll] = useState(DICE_ROLL)
     const [levelSelection, setLevelSelection] = useState(false)
     const [levelProficiency, setLevelProficiency] = useState(0)
     const [profSelection, setProfSelection] = useState(false)
@@ -100,9 +105,6 @@ function App() {
     const [charName, setCharName] = useState("")
     const [characterList, setCharacterList] = useState([])
 
-    // console.log(character['ability-modifiers']['dex'])
-    // console.log(character['initiative'])
-    console.log(characterList)
 
     useEffect(()=>{
         proficiencyHandler([],'skill-proficiencies',"skill-")
@@ -214,6 +216,8 @@ function App() {
             let raceBonus = abilityBonuses.find((el)=> {
                 if(hasKey(el,'ability_score') && hasKey(el, 'bonus')){
                     return (el['ability_score'].index === stat)
+                }else{
+                    return []
                 }
             })
             if(hasKey(raceBonus,'bonus')){
@@ -341,6 +345,8 @@ function App() {
                              character={character}
                              setCharName={setCharName}
                              setCharacterList={setCharacterList}
+                             diceRoll={diceRoll}
+                             setDiceRoll={setDiceRoll}
                     />
                 </Route>
                 <Route path={"/characters"} exact>

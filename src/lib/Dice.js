@@ -11,19 +11,14 @@ export function Dice({setBase, roll, setRoll}) {
         "6": "https://media.geeksforgeeks.org/wp-content/uploads/20200508141006/dice6.png",
     }
     const [active,setActive] = useState(true)
-    //const [finalValue, setFinalValue] = useState(1)
     const myRef = useRef()
 
     useEffect(()=>{
-        checkForGroupRoll()
-    },[roll])
-
-    function checkForGroupRoll(){
         if (roll){
             myRef.current.click()
             setRoll(true)
         }
-    }
+    },[roll, setRoll])
 
     function rollDice(e) {
         if(active){

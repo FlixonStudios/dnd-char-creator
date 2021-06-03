@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Container, Row, Col, FormText, Image, Button} from "react-bootstrap";
+import {Container, Row, Col, Image, Button} from "react-bootstrap";
 import {SelectClass} from "./SelectClass";
 import {SelectRace} from "./SelectRace";
 import SelectLevel from "./SelectLevel";
@@ -8,7 +8,7 @@ import SkillProficiencies from "./SkillProficiencies";
 import bg_img from "../../img/dnd-bg.jpg";
 import SelectRaceProficiencies from "./SelectRaceProficiencies";
 import {getListData} from "../../lib/GetData";
-import {CLASSES, RACES, RULE_SECTIONS, RULES} from "../../lib/Api";
+import {CLASSES, RACES, RULES} from "../../lib/Api";
 import AbilityModifier from "./AbilityModifier";
 import LevelProficiency from "./LevelProficiency";
 import SelectTraits from "./SelectTraits";
@@ -38,7 +38,8 @@ export function Creator({
                             setCharImg,charImg,
                             setCharName,
                             character,
-                            setCharacterList
+                            setCharacterList,
+                            diceRoll, setDiceRoll
                         }) {
 
     const abilityKey = 'ability-scores'
@@ -61,7 +62,7 @@ export function Creator({
                 setRaceDetails(res)
             }).catch(err=>{console.log(err)})
         }
-        setProfSelection(prevState=>({...prevState,...{['race']:false}}))
+        //setProfSelection(prevState=>({...prevState,...{['race']:false}}))
     },[raceSelection])
 
     useEffect(()=>{
@@ -70,7 +71,7 @@ export function Creator({
                 setClassDetails(res)
             }).catch(err=>{console.log(err)})
         }
-        setProfSelection(prevState=>({...prevState,...{['class']:false}}))
+        //setProfSelection(prevState=>({...prevState,...{['class']:false}}))
     },[classSelection])
 
     useEffect(()=>{
@@ -87,6 +88,7 @@ export function Creator({
 
     function parseAbilityData(str){
         let temp = str.split('\n\n')
+        temp[0] = temp[0].substring(2, temp[0].length)
         setAbilityOverallTips(temp)
     }
 
@@ -247,7 +249,9 @@ export function Creator({
                             <Row >
                                 <Col className={`d-flex justify-content-center`} xs={12}>
                                     <h4 className={"text-white"}>Ability Scores</h4>
-                                    <MyToolTip title={abilityOverallTips[0]} custom={abilityOverallTips[2]}/>
+                                    <MyToolTip title={abilityOverallTips[0]} custom={abilityOverallTips[2]}
+                                               dependentData={abilityOverallTips}
+                                    />
                                 </Col>
                             </Row>
                             <Row>

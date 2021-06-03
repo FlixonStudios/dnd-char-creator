@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {Card, Col, Image, Row} from "react-bootstrap";
+import React from 'react';
+import {Col, Image, Row} from "react-bootstrap";
 import DisplayData from "./DisplayData";
 
 

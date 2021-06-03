@@ -20,7 +20,11 @@ export function SelectBaseAbility({stat, setBaseAbilitiesSelection,baseAbilities
             e.target.classList.add("disabled")
             setActive(false)
         }
-
+    }
+    function resetRoll(){
+        if(!active){
+            setRoll(!roll)
+        }
     }
 
     return (

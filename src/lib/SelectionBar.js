@@ -1,14 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Button, Col, Row} from "react-bootstrap";
+import MyToolTip from "../components/general/MyToolTip";
+import {hasKey} from "./Func";
 
 export function SelectionBar({numOfChoices, choice, setChoicesSelected, choicesSelected,
                                  id, choiceId, setChoiceId}) {
-    const[select, setSelect] = useState({})
-
-    useEffect(()=>{
-        //console.log(choice)
-        //console.log(`selection rendered ${choice.index}`)
-    },[])
 
     function changeToSelected(e){
         if (e.target.innerText ==="Select"){
@@ -84,13 +80,41 @@ export function SelectionBar({numOfChoices, choice, setChoicesSelected, choicesS
             return renderDefault()
         }
     }
+    function renderTooltipController(){
+        let parsedUrl = []
+
+        if (choice['index'].substr(0,6)==='skill-'){
+            return (<MyToolTip type={'skill'} url={choice['url']} title={choice['name']} dependentData={choice}/>)
+        }else if(hasKey(choice,'references')){
+            //logic does not work as choice is not the full object of the proficiency
+            parsedUrl = choice['references'][0]['url'].split('/')
+            let newObj = choice['references'][0]
+            if(parsedUrl[parsedUrl.length-2]==='equipment'){
+                return (<MyToolTip url={newObj['url']} keyName={"desc"} title={newObj['name']}
+                                   dependentData={choice}/>)
+            }else{
+                return (<></>)
+            }
+        }else{
+            return (<></>)
+        }
+    }
 
     return (
         <Row>
-            <Col>
-                <p className={`text-white`}>{choice.name}</p>
+            <Col md={8}>
+                <Row>
+                    <Col md={6}>
+                        <p className={`text-white`}>{choice.name}</p>
+                    </Col>
+                    <Col md={2}>
+                        {
+                            renderTooltipController()
+                        }
+                    </Col>
+                </Row>
             </Col>
-            <Col>
+            <Col md={4}>
                 {
                     renderDefaultOrSelection()
                 }

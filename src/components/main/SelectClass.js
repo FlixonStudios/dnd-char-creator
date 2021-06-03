@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {CLASSES, RACES} from "../../lib/Api";
+import {CLASSES} from "../../lib/Api";
 import InputDropdown from "../../lib/InputDropdown";
 import {getListData} from "../../lib/GetData";
-import MyToolTip from "../general/MyToolTip";
-import {Row} from "react-bootstrap";
 
 export function SelectClass({setClassSelection, classSelection}) {
     const [classList, setClassList] = useState([])

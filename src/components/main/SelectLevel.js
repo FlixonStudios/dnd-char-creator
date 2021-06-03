@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import InputDropdown from "../../lib/InputDropdown";
-import {Row} from "react-bootstrap";
 
 export function SelectLevel({setLevelSelection, levelSelection}) {
     const [levelList, setLevelList] = useState([])

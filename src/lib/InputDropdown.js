@@ -1,15 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Dropdown, DropdownButton} from "react-bootstrap";
 
 export function InputDropdown({title, list, keyName, status, selection, setSelection}) {
-    const [listState, setListState] = useState([])
 
     useEffect(()=>{
-
     },[status])
 
     function renderList(){
-        //console.log(list)
         if (status){
             return (
                 <>

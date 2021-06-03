@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {hasKey} from "../../lib/Func";
 
 export function AbilityModifier({stat, setModifierValues, abilityScore
                                 }) {
