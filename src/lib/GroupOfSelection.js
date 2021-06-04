@@ -19,9 +19,9 @@ export function GroupOfSelection({list, numOfChoices, defaultChoices, selection,
         setReturn(prevState=>({...prevState,...{[tag]:temp}}))
         setConfirmed(true)
     }
-    function reset(){
-        setChoicesSelected([])
-    }
+    // function reset(){
+    //     setChoicesSelected([])
+    // }
 
     function renderChoices(){
         if(!confirmed){
@@ -65,10 +65,10 @@ export function GroupOfSelection({list, numOfChoices, defaultChoices, selection,
                                 onClick={lockDetails}>
                             Confirm
                         </Button>
-                        <Button variant={"danger"} className={"m-1"} type={"submit"}
-                                onClick={reset}>
-                            Reset
-                        </Button>
+                        {/*<Button variant={"danger"} className={"m-1"} type={"submit"}*/}
+                        {/*        onClick={reset}>*/}
+                        {/*    Reset*/}
+                        {/*</Button>*/}
                     </Row>
                 </>
             )

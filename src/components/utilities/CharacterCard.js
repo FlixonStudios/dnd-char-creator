@@ -12,7 +12,7 @@ export function CharacterCard({character}) {
              <Col md={3}>
                  <Image src={character["img"]}
                         className={"rounded img-thumbnail"}
-                        style={{height:"230px",objectFit:"cover", objectPosition:"center"}}
+                        style={{height:"240px", width:"160px" ,objectFit:"cover", objectPosition:"center"}}
                         fluid/>
              </Col>
              <Col md={9}>

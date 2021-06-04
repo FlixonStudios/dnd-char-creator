@@ -4,7 +4,7 @@ import InputDropdown from "../../lib/InputDropdown";
 import {getListData} from "../../lib/GetData";
 import {SelectSubRace} from "./SelectSubRace";
 import {Col, Row} from "react-bootstrap";
-import MyToolTip from "../general/MyToolTip";
+import MyToolTip from "../utilities/MyToolTip";
 
 export function SelectRace({setRaceSelection, raceSelection,
                                setSubRaceSelection, subRaceSelection}) {

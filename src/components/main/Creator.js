@@ -1,23 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import {Container, Row, Col, Image, Button} from "react-bootstrap";
-import {SelectClass} from "./SelectClass";
-import {SelectRace} from "./SelectRace";
-import SelectLevel from "./SelectLevel";
-import SelectBaseAbility from "./SelectBaseAbility";
+import {SelectClass} from "../sub/SelectClass";
+import {SelectRace} from "../sub/SelectRace";
+import SelectLevel from "../sub/SelectLevel";
+import SelectBaseAbility from "../sub/SelectBaseAbility";
 import SkillProficiencies from "./SkillProficiencies";
 import bg_img from "../../img/dnd-bg.jpg";
-import SelectRaceProficiencies from "./SelectRaceProficiencies";
+import SelectRaceProficiencies from "../sub/SelectRaceProficiencies";
 import {getListData} from "../../lib/GetData";
 import {CLASSES, RACES, RULES} from "../../lib/Api";
 import AbilityModifier from "./AbilityModifier";
 import LevelProficiency from "./LevelProficiency";
-import SelectTraits from "./SelectTraits";
-import SelectClassProficiencies from "./SelectClassProficiencies";
-import DisplayData from "./DisplayData";
+import SelectTraits from "../sub/SelectTraits";
+import SelectClassProficiencies from "../sub/SelectClassProficiencies";
+import DisplayData from "../utilities/DisplayData";
 import {hasKey} from "../../lib/Func";
-import DisplaySavingThrow from "./DisplaySavingThrow";
-import SelectLanguages from "./SelectLanguages";
-import MyToolTip from "../general/MyToolTip";
+import DisplaySavingThrow from "../utilities/DisplaySavingThrow";
+import SelectLanguages from "../sub/SelectLanguages";
+import MyToolTip from "../utilities/MyToolTip";
 
 
 export function Creator({
@@ -199,9 +199,9 @@ export function Creator({
                                 </Col>
                                 <Col md={12}>
                                     <div className={"d-flex justify-content-center align-items-center m-3"}
-
                                     >
-                                        <Image src={charImg} style={{height:"350px"}} fluid/>
+                                        <Image src={charImg}
+                                               style={{height:"360px", width:"240px", objectFit:"cover"}} fluid/>
                                     </div>
                                 </Col>
                                 <Col md={10}>

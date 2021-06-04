@@ -22,11 +22,11 @@ export async function getStringData(url, key=""){
         let res = await axios.get(url)
         if(key===""){
             let data = res.data
-            console.log(data)
+            //console.log(data)
             return data
         }else{
             let data = res.data[key]
-            console.log(data)
+            //console.log(data)
             return data
         }
     }catch (err){

@@ -10,7 +10,6 @@ export function MyToolTip({url="", keyName="", title, custom="", dependentData, 
     const [main, setMain] = useState("")
     //console.log(url)
     useEffect(()=>{
-            console.log(url)
 
             if (custom==="" && url!==""){
                 if(type==="skill"){

@@ -1,5 +1,5 @@
 import React from 'react';
-import CharacterCard from "./CharacterCard";
+import CharacterCard from "../utilities/CharacterCard";
 import {Container} from "react-bootstrap";
 import char_bg from "../../img/char_select_bg.jpg"
 

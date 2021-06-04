@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Col, Row} from "react-bootstrap";
-import MyToolTip from "../components/general/MyToolTip";
+import MyToolTip from "../components/utilities/MyToolTip";
 import {hasKey} from "./Func";
 
 export function SelectionBar({numOfChoices, choice, setChoicesSelected, choicesSelected,
