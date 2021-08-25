@@ -40,7 +40,7 @@ export function Home(props) {
             backgroundImage:`url(${bg_img})`,
             backgroundSize:`cover`,
             backgroundPosition:`center`,
-            height: "1440px",
+            height: "100%",
         }}>
             <Container className={""} style={{backgroundColor:`rgba(0,0,0,0.7)`}}>
                 <Row>
