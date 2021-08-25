@@ -11,6 +11,7 @@ import {hasKey} from "./lib/Func";
 import Characters from "./components/main/Characters";
 import test_img from "./img/female_aumaua_x1_lg - Copy.png"
 import banner from "./img/night-sky.jpg"
+import {Footer} from "./components/general/Footer";
 
 function App() {
     const modifiers = {
@@ -357,6 +358,7 @@ function App() {
                 </Route>
 
             </Switch>
+            <Footer />
         </div>
     </BrowserRouter>
   );
