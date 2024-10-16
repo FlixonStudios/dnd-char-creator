@@ -12,7 +12,9 @@ function pathToObject(path, obj, toIgnore = BASE) {
 
 export async function getListData(url, key = "", isMock = false) {
   try {
-    let res = await axios.get(url);
+    let res = isMock
+      ? { data: pathToObject(url, Mocks) }
+      : await axios.get(url);
 
     if (key === "") {
       let data = res.data;

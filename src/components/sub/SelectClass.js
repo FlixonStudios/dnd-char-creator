@@ -3,12 +3,12 @@ import {CLASSES} from "../../lib/Api";
 import InputDropdown from "../../lib/InputDropdown";
 import {getListData} from "../../lib/GetData";
 
-export function SelectClass({setClassSelection, classSelection}) {
+export function SelectClass({setClassSelection, classSelection, isMock}) {
     const [classList, setClassList] = useState([])
     const [classStatus, setClassStatus] = useState(false)
 
     useEffect(()=>{
-        getListData(CLASSES, 'results').then((res)=>{
+        getListData(CLASSES, 'results', isMock).then((res)=>{
                 setClassStatus(true)
                 setClassList(res)
             }

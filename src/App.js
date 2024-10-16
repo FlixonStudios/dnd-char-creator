@@ -421,7 +421,7 @@ function App() {
           <Route path={"/"} exact>
             <Home isMock={isMock} />
           </Route>
-          <Route path={"/creator"}>
+          <Route path={"/creator"} isMock={isMock}>
             <Creator
               setClassSelection={setClassSelection}
               classSelection={classSelection}
