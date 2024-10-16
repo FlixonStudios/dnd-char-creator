@@ -75,12 +75,12 @@ export function Creator({
     },[classSelection])
 
     useEffect(()=>{
-        if(getRacialAbilityBonus()!==[]){
+        if(getRacialAbilityBonus().length > 0 ){
             setRaceAbilityBonus(getRacialAbilityBonus())
         }
     },[raceDetails])
     useEffect(()=>{
-        if(getSavingThrows()!==[]){
+        if(getSavingThrows().length > 0 ){
             setSavingThrows(getSavingThrows())
         }
         setHitDie(getHitDie())
@@ -363,7 +363,7 @@ export function Creator({
                                 {
                                     (raceSelection)? <SelectLanguages setLanguages={setLanguages}
                                                                       raceDetails={raceDetails}
-                                                                      setLanguages={setLanguages}
+                                                                      raceSelection={raceSelection}
                                     /> : <></>
                                 }
 

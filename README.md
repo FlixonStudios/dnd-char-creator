@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 When you access the site, you'll be brought to the Homepage:
 
-![Image of Home](https://git.generalassemb.ly/chiakaiming/dnd-char-creator/blob/master/src/img/for-readme/home.PNG)
+![Image of Home](https://github.com/FlixonStudios/dnd-char-creator/blob/master/src/img/for-readme/home.PNG)
 
 Here, you can read a brief summary of what D&D is about and how its played. 
 
@@ -14,15 +14,15 @@ Once you're done, click the "Character Creator" link near the top to create your
 
 ## Character Creator
 
-![Image of character creator link](https://git.generalassemb.ly/chiakaiming/dnd-char-creator/blob/master/src/img/for-readme/home-select-char-creator.png)
+![Image of character creator link](https://github.com/FlixonStudios/dnd-char-creator/blob/master/src/img/for-readme/home-select-char-creator.png)
 
 You'll land on the following Character Creator Screen, cool right?
 
-![Image of character creator](https://git.generalassemb.ly/chiakaiming/dnd-char-creator/blob/master/src/img/for-readme/char-creator.PNG)
+![Image of character creator](https://github.com/FlixonStudios/dnd-char-creator/blob/master/src/img/for-readme/char-creator.PNG)
 
 The following is just a quick walkthrough of how to go about creating your character:
 
-![Image of creator step 1](https://git.generalassemb.ly/chiakaiming/dnd-char-creator/blob/master/src/img/for-readme/char-creator-pt-1.png)
+![Image of creator step 1](https://github.com/FlixonStudios/dnd-char-creator/blob/master/src/img/for-readme/char-creator-pt-1.png)
 
 1. First, type the name of your new character!
 2. Then use the dropdown menu under "Race", "Class" and "Level" to select your character's race, class and starting level respectively.
@@ -31,7 +31,7 @@ The following is just a quick walkthrough of how to go about creating your chara
 
 Now, onwards to part 2!
 
-![Image of creator step 2](https://git.generalassemb.ly/chiakaiming/dnd-char-creator/blob/master/src/img/for-readme/char-creator2-pt-2.png)
+![Image of creator step 2](https://github.com/FlixonStudios/dnd-char-creator/blob/master/src/img/for-readme/char-creator2-pt-2.png)
 
 5. Don't worry about these stats "Proficiency", "Initiative", "Armor Class" and "Hit Points" these are also automatically calculated
 6. Have fun with the Dice! Press the "Roll" button to generate your stats (the smaller number). Depending on the value, these will translate into your Modifiers (which are the bigger numbers just belows each of the STR, DEX etc.). Careful! You can only roll once!
@@ -40,7 +40,7 @@ Now, onwards to part 2!
 
 Just one more push, lets go!!!
 
-![Image of creator step 3](https://git.generalassemb.ly/chiakaiming/dnd-char-creator/blob/master/src/img/for-readme/char-creator3-pt-3.png)
+![Image of creator step 3](https://github.com/FlixonStudios/dnd-char-creator/blob/master/src/img/for-readme/char-creator3-pt-3.png)
 
 9. By now you should see the skill proficiency table update, your selected proficiencies should also be reflected here (applying your proficiency bonus in 5. and the Modifiers in 6. to the final score - Bigger is better! Nothing to do here, lets move on..
 10. After clicking "Confirm" in 7. the selections will minimise for your viewing convenience, you can click on these buttons to view/edit your selections. Take note, if you go back and change your Race or Class, you may have to reopen the selections to selects the new proficiencies.
@@ -52,7 +52,7 @@ Just one more push, lets go!!!
 
 Now, to view your handiwork:
 
-![Image of creator step 3](https://git.generalassemb.ly/chiakaiming/dnd-char-creator/blob/master/src/img/for-readme/characters.PNG)
+![Image of creator step 3](https://github.com/FlixonStudios/dnd-char-creator/blob/master/src/img/for-readme/characters.PNG)
 
 Characters you create will be displayed over here, from oldest to newest. For now, this is a view-only page. Take note, as this is still WIP, if you refresh your page your characters will be lost :(
 
@@ -60,3 +60,7 @@ Well, that's all for now. Hope your had fun creating your D&D character!
 
 Made thanks to : http://www.dnd5eapi.co/
 Disclaimer: I may have gotten some mechanics wrongly, apologise in advance.
+
+## Further notes
+
+Created with Node 16
