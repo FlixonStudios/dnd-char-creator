@@ -58,6 +58,7 @@ export function SelectRace({
             setSubRaceSelection={setSubRaceSelection}
             subRaceSelection={subRaceSelection}
             raceSelection={raceSelection}
+            isMock={isMock}
           />
         </Col>
       }
@@ -68,6 +69,7 @@ function RenderSubRace({
   raceSelection,
   setSubRaceSelection,
   subRaceSelection,
+  isMock,
 }) {
   const [subRaceList, setSubRaceList] = useState({});
   const [subRaceListStatus, setSubRaceListStatus] = useState(false);
@@ -76,7 +78,8 @@ function RenderSubRace({
     async function getSubRace(race) {
       try {
         let url = `${RACES}/${race.toLowerCase()}`;
-        let data = await getListData(url, "subraces");
+        let data = await getListData(url, "subraces", isMock);
+
         setSubRaceList((prevState) => ({ ...prevState, ...{ [race]: data } }));
         setSubRaceListStatus(true);
         return { [race]: data };
