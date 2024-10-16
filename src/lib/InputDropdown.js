@@ -7,7 +7,7 @@ export function InputDropdown({title, list, keyName, status, selection, setSelec
     },[status])
 
     function renderList(){
-        if (status){
+        if (status && list){
             return (
                 <>
                     {

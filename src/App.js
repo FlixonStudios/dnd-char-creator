@@ -134,6 +134,7 @@ function App() {
     "martial-weapons",
   ];
 
+  const [loading, setLoading] = useState(true);
   const [isMock, setIsMock] = useState(false);
   const [character, setCharacter] = useState(charData);
   const [classSelection, setClassSelection] = useState(false);
@@ -158,6 +159,7 @@ function App() {
   async function setMockViaHealthcheck() {
     const shouldUseMock = await healthcheck();
     setIsMock(shouldUseMock);
+    setLoading(false);
     return;
   }
 
@@ -421,42 +423,45 @@ function App() {
           <Route path={"/"} exact>
             <Home isMock={isMock} />
           </Route>
-          <Route path={"/creator"} isMock={isMock}>
-            <Creator
-              setClassSelection={setClassSelection}
-              classSelection={classSelection}
-              setLevelSelection={setLevelSelection}
-              levelSelection={levelSelection}
-              setRaceSelection={setRaceSelection}
-              raceSelection={raceSelection}
-              setSubRaceSelection={setSubRaceSelection}
-              subRaceSelection={subRaceSelection}
-              baseAbilitiesSelection={baseAbilitiesSelection}
-              setBaseAbilitiesSelection={setBaseAbilitiesSelection}
-              profSelection={profSelection}
-              setProfSelection={setProfSelection}
-              modifierValues={modifierValues}
-              setModifierValues={setModifierValues}
-              levelProficiency={levelProficiency}
-              setLevelProficiency={setLevelProficiency}
-              raceAbilityBonus={raceAbilityBonus}
-              setRaceAbilityBonus={setRaceAbilityBonus}
-              traitSelection={traitSelection}
-              setTraitSelection={setTraitSelection}
-              savingThrows={savingThrows}
-              setSavingThrows={setSavingThrows}
-              hitDie={hitDie}
-              setHitDie={setHitDie}
-              languages={languages}
-              setLanguages={setLanguages}
-              setCharImg={setCharImg}
-              charImg={charImg}
-              character={character}
-              setCharName={setCharName}
-              setCharacterList={setCharacterList}
-              diceRoll={diceRoll}
-              setDiceRoll={setDiceRoll}
-            />
+          <Route path={"/creator"}>
+            {!loading && (
+              <Creator
+                setClassSelection={setClassSelection}
+                classSelection={classSelection}
+                setLevelSelection={setLevelSelection}
+                levelSelection={levelSelection}
+                setRaceSelection={setRaceSelection}
+                raceSelection={raceSelection}
+                setSubRaceSelection={setSubRaceSelection}
+                subRaceSelection={subRaceSelection}
+                baseAbilitiesSelection={baseAbilitiesSelection}
+                setBaseAbilitiesSelection={setBaseAbilitiesSelection}
+                profSelection={profSelection}
+                setProfSelection={setProfSelection}
+                modifierValues={modifierValues}
+                setModifierValues={setModifierValues}
+                levelProficiency={levelProficiency}
+                setLevelProficiency={setLevelProficiency}
+                raceAbilityBonus={raceAbilityBonus}
+                setRaceAbilityBonus={setRaceAbilityBonus}
+                traitSelection={traitSelection}
+                setTraitSelection={setTraitSelection}
+                savingThrows={savingThrows}
+                setSavingThrows={setSavingThrows}
+                hitDie={hitDie}
+                setHitDie={setHitDie}
+                languages={languages}
+                setLanguages={setLanguages}
+                setCharImg={setCharImg}
+                charImg={charImg}
+                character={character}
+                setCharName={setCharName}
+                setCharacterList={setCharacterList}
+                diceRoll={diceRoll}
+                setDiceRoll={setDiceRoll}
+                isMock={isMock}
+              />
+            )}
           </Route>
           <Route path={"/characters"} exact>
             <Characters characterList={characterList} />

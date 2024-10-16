@@ -46,6 +46,7 @@ export function SelectRace({
               url={`${RACES}/${raceSelection.toLowerCase()}`}
               keyName={"alignment"}
               title={raceSelection}
+              isMock={isMock}
             />
           )}
         </Row>

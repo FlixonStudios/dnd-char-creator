@@ -305,6 +305,7 @@ export function Creator({
                     title={abilityOverallTips[0]}
                     custom={abilityOverallTips[2]}
                     dependentData={abilityOverallTips}
+                    isMock={isMock}
                   />
                 </Col>
               </Row>
@@ -402,6 +403,7 @@ export function Creator({
                     raceSelection={raceSelection}
                     profSelection={profSelection}
                     setProfSelection={setProfSelection}
+                    isMock={isMock}
                   />
                 ) : (
                   <></>
@@ -414,6 +416,7 @@ export function Creator({
                     raceSelection={raceSelection}
                     traitSelection={traitSelection}
                     setTraitSelection={setTraitSelection}
+                    isMock={isMock}
                   />
                 ) : (
                   <></>
@@ -426,6 +429,7 @@ export function Creator({
                     classDetails={classDetails}
                     profSelection={profSelection}
                     setProfSelection={setProfSelection}
+                    isMock={isMock}
                   />
                 ) : (
                   <></>
@@ -437,6 +441,7 @@ export function Creator({
                     setLanguages={setLanguages}
                     raceDetails={raceDetails}
                     raceSelection={raceSelection}
+                    isMock={isMock}
                   />
                 ) : (
                   <></>
