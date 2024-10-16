@@ -13,6 +13,14 @@ export const Mocks = {
     human: {
       alignment:
         "Humans tend toward no particular alignment. The best and the worst are found among them.",
+      languages: [{ name: "Common", index: "language-common" }],
+      language_options: {
+        from: [
+          { name: "Dwarvish", index: "language-dwarvish" },
+          { name: "Elvish", index: "language-elvish" },
+        ],
+        choose: 1,
+      },
     },
     dwarf: {
       alignment:
@@ -29,6 +37,10 @@ export const Mocks = {
           index: "skill-dwarven-combat-training",
           url: `${BASE}/proficiencies/skill-dwarven-combat-training`,
         },
+      ],
+      languages: [
+        { name: "Common", index: "language-common" },
+        { name: "Dwarvish", index: "language-dwarvish" },
       ],
     },
   },
