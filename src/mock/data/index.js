@@ -15,10 +15,19 @@ export const Mocks = {
     dwarf: {
       alignment:
         "Most dwarves are lawful, believing firmly in the benefits of a well-ordered society. They tend toward good as well, with a strong sense of fair play and a belief that everyone deserves to share in the benefits of a just order.",
-      subraces: [{ name: "Hill Dwarf"}],
+      subraces: [{ name: "Hill Dwarf" }],
     },
   },
-  classes: {},
+  classes: {
+    results: [
+      {
+        name: "Cleric",
+      },
+      {
+        name: "Fighter",
+      },
+    ],
+  },
   skills: {},
   ["rule-sections"]: {
     ["the-environment"]: {
