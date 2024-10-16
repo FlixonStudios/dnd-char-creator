@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import bg_img from "../../img/dnd-home-img.jpg";
 import { Col, Container, Row } from "react-bootstrap";
-import { getListData } from "../../lib/GetData";
+import { getStringData } from "../../lib/GetData";
 import { RULE_SECTIONS } from "../../lib/Api";
 import { hasKey } from "../../lib/Func";
 
 const DND_OVERVIEW =
-"The core of D&D is storytelling. You and your friends tell a story together, guiding your heroes through quests for treasure, battles with deadly foes, daring rescues, courtly intrigue, and much more. You can also explore the world of Dungeons & Dragons through any of the novels written by its fantasy authors, as well as engaging board games and immersive video games. All of these stories are part of D&D.";
+  "The core of D&D is storytelling. You and your friends tell a story together, guiding your heroes through quests for treasure, battles with deadly foes, daring rescues, courtly intrigue, and much more. You can also explore the world of Dungeons & Dragons through any of the novels written by its fantasy authors, as well as engaging board games and immersive video games. All of these stories are part of D&D.";
 const DND_RESULTS =
-"Describing the results often leads to another decision point, which brings the flow of the game right back to step 1. This pattern holds whether the adventurers are cautiously exploring a ruin, talking to a devious prince, or locked in mortal combat against a dragon.";
+  "Describing the results often leads to another decision point, which brings the flow of the game right back to step 1. This pattern holds whether the adventurers are cautiously exploring a ruin, talking to a devious prince, or locked in mortal combat against a dragon.";
 const environmentUrl = "the-environment";
 
-export function Home(props) {
+export function Home({ isMock }) {
   const [environment, setEnvironment] = useState([]);
 
   useEffect(() => {
-    getListData(`${RULE_SECTIONS}/${environmentUrl}`, "desc")
+    getStringData(`${RULE_SECTIONS}/${environmentUrl}`, "desc", isMock)
       .then((res) => {
         parseEnvironmentData(res);
       })
@@ -31,12 +31,12 @@ export function Home(props) {
       if (el.match(re) !== null) {
         key = el.match(re)[0].substr(3, el.match(re)[0].length - 3);
         key = key.toLowerCase().split(" ").join("-");
-        //console.log(key)
       } else {
         obj[key] = el;
       }
     });
-    setEnvironment(obj);
+    // FIXME: skip parsing for now
+    setEnvironment({ "the-environment": str });
   }
 
   return (

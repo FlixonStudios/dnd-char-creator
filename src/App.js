@@ -155,9 +155,14 @@ function App() {
   const [charName, setCharName] = useState("");
   const [characterList, setCharacterList] = useState([]);
 
-  useEffect(() => {
-    const shouldUseMock = healthcheck();
+  async function setMockViaHealthcheck() {
+    const shouldUseMock = await healthcheck();
     setIsMock(shouldUseMock);
+    return;
+  }
+
+  useEffect(() => {
+    setMockViaHealthcheck();
   }, []);
 
   useEffect(() => {
@@ -414,7 +419,7 @@ function App() {
         ></div>
         <Switch>
           <Route path={"/"} exact>
-            <Home />
+            <Home isMock={isMock} />
           </Route>
           <Route path={"/creator"}>
             <Creator
@@ -457,7 +462,7 @@ function App() {
             <Characters characterList={characterList} />
           </Route>
           <Route path={"/home"} exact>
-            <Home />
+            <Home isMock={isMock} />
           </Route>
         </Switch>
         <Footer isMock={isMock} />
