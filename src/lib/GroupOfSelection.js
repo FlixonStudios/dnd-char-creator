@@ -34,44 +34,34 @@ export function GroupOfSelection({
       return (
         <>
           {title !== "" ? <h5 className={"text-white"}>{title}</h5> : <></>}
-          {defaultChoices.length > 0 ? (
+          {defaultChoices.length > 0 &&
             defaultChoices.map((choice, index) => (
-              <>
-                <SelectionBar
-                  numOfChoices={0}
-                  key={uuidv4()}
-                  id={`${choice.index}-${index}-${numOfChoices}`}
-                  choice={choice}
-                  setChoicesSelected={setChoicesSelected}
-                  choicesSelected={choicesSelected}
-                  choiceId={choiceId}
-                  setChoiceId={setChoiceId}
-                  isMock={isMock}
-                />
-              </>
-            ))
-          ) : (
-            <></>
-          )}
-          {list.length > 0 ? (
+              <SelectionBar
+                numOfChoices={0}
+                key={uuidv4()}
+                id={`${choice.index}-${index}-${numOfChoices}`}
+                choice={choice}
+                setChoicesSelected={setChoicesSelected}
+                choicesSelected={choicesSelected}
+                choiceId={choiceId}
+                setChoiceId={setChoiceId}
+                isMock={isMock}
+              />
+            ))}
+          {list.length > 0 &&
             list.map((choice, index) => (
-              <>
-                <SelectionBar
-                  numOfChoices={numOfChoices}
-                  key={`${uuidv4()}-1`}
-                  id={`${choice.index}-${index}-${numOfChoices}`}
-                  choice={choice}
-                  setChoicesSelected={setChoicesSelected}
-                  choicesSelected={choicesSelected}
-                  choiceId={choiceId}
-                  setChoiceId={setChoiceId}
-                  isMock={isMock}
-                />
-              </>
-            ))
-          ) : (
-            <></>
-          )}
+              <SelectionBar
+                numOfChoices={numOfChoices}
+                key={`${uuidv4()}-1`}
+                id={`${choice.index}-${index}-${numOfChoices}`}
+                choice={choice}
+                setChoicesSelected={setChoicesSelected}
+                choicesSelected={choicesSelected}
+                choiceId={choiceId}
+                setChoiceId={setChoiceId}
+                isMock={isMock}
+              />
+            ))}
           <Row className={"d-flex justify-content-end"}>
             <Button
               variant={"success"}
