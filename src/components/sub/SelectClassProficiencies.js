@@ -30,7 +30,11 @@ function SelectClassProficiencies({
     if (hasKey(classDetails, skillProfKey)) {
       if (hasKey(classDetails[skillProfKey][0], optionFromKey)) {
         setNumOfChoices(classDetails[skillProfKey][0][optionChooseKey]);
-        setSkillProf(classDetails[skillProfKey][0][optionFromKey]?.["options"]);
+
+        const transformedSkillProf = classDetails[skillProfKey][0][
+          optionFromKey
+        ]?.["options"].map((option) => option.item);
+        setSkillProf(transformedSkillProf);
       }
     }
   }

@@ -31,7 +31,12 @@ export function SelectLanguages({
     if (hasKey(raceDetails, langOptionKey)) {
       if (hasKey(raceDetails[langOptionKey], optionFromKey)) {
         setNumOfChoices(raceDetails[langOptionKey][optionChooseKey]);
-        setLanguageOptions(raceDetails[langOptionKey][optionFromKey]);
+
+        const transformedLanguageOptions = raceDetails[langOptionKey][
+          optionFromKey
+        ]?.["options"].map((option) => option.item);
+
+        setLanguageOptions(transformedLanguageOptions);
       }
     }
   }
