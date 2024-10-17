@@ -7,7 +7,7 @@ export function HomeNav(props) {
     return (
             <Row>
                 <Col md={6}>
-                    <Link to={"/home"}>
+                    <Link to={"/dnd-char-creator/home"}>
                         <h2 className={"text-white text-decoration-none"}>Dungeons & Dragons</h2>
                     </Link>
                     <h5 className={"text-white"}>5th Edition</h5>

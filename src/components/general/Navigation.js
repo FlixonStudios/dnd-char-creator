@@ -9,8 +9,8 @@ export function Navigation(props) {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto d-flex align-items-center">
-                        <NavLink className={"text-white mr-4"} to={"/creator"}>Character Creator</NavLink>
-                        <NavLink className={"text-white"} to={"/characters"}>Your Characters
+                        <NavLink className={"text-white mr-4"} to={"/dnd-char-creator/creator"}>Character Creator</NavLink>
+                        <NavLink className={"text-white"} to={"/dnd-char-creator/characters"}>Your Characters
                         </NavLink>
                     </Nav>
                 </Navbar.Collapse>

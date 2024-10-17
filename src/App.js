@@ -422,10 +422,10 @@ function App() {
           style={{ backgroundColor: `rgba(0,0,0,0.7)`, height: "10px" }}
         ></div>
         <Switch>
-          <Route path={"/"} exact>
+          <Route path={"/dnd-char-creator/"} exact>
             <Home isMock={isMock} />
           </Route>
-          <Route path={"/creator"}>
+          <Route path={"/dnd-char-creator/creator"}>
             {!loading && (
               <Creator
                 setClassSelection={setClassSelection}
@@ -465,10 +465,10 @@ function App() {
               />
             )}
           </Route>
-          <Route path={"/characters"} exact>
+          <Route path={"/dnd-char-creator/characters"} exact>
             <Characters characterList={characterList} />
           </Route>
-          <Route path={"/home"} exact>
+          <Route path={"/dnd-char-creator/home"} exact>
             <Home isMock={isMock} />
           </Route>
         </Switch>
