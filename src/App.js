@@ -203,16 +203,16 @@ function App() {
   }, [savingThrows, levelProficiency]);
 
   useEffect(() => {
-    setCharacter((prevState) => ({ ...prevState, ...{ ["name"]: charName } }));
+    setCharacter((prevState) => ({ ...prevState, ...{ name: charName } }));
   }, [charName]);
   useEffect(() => {
-    setCharacter((prevState) => ({ ...prevState, ...{ ["img"]: charImg } }));
+    setCharacter((prevState) => ({ ...prevState, ...{ img: charImg } }));
   }, [charImg]);
   useEffect(() => {
     if (levelSelection) {
       setCharacter((prevState) => ({
         ...prevState,
-        ...{ ["level"]: levelSelection },
+        ...{ level: levelSelection },
       }));
     }
   }, [levelSelection]);
@@ -220,7 +220,7 @@ function App() {
     if (classSelection) {
       setCharacter((prevState) => ({
         ...prevState,
-        ...{ ["class"]: classSelection },
+        ...{ class: classSelection },
       }));
     }
   }, [classSelection]);
@@ -228,7 +228,7 @@ function App() {
     if (raceSelection) {
       setCharacter((prevState) => ({
         ...prevState,
-        ...{ ["race"]: raceSelection },
+        ...{ race: raceSelection },
       }));
     }
   }, [raceSelection]);
@@ -236,36 +236,37 @@ function App() {
     if (levelProficiency) {
       setCharacter((prevState) => ({
         ...prevState,
-        ...{ ["proficiency"]: levelProficiency },
+        ...{ proficiency: levelProficiency },
       }));
     }
   }, [levelProficiency]);
 
   function proficiencyHandler(masterArr = [], keyName, keyWord = "") {
-    let list = [];
-    let filtered = [];
-    let noDuplicate = [];
+    let proficiencies = [];
+    let uniqueUrls = new Set();
+
     for (let attribute in profSelection) {
-      if (profSelection[attribute]) {
-        if (keyWord === "") {
-          filtered = profSelection[attribute].filter((el) =>
-            masterArr.includes(el.index)
-          );
-        } else {
-          filtered = profSelection[attribute].filter((el) =>
-            el.index.includes(keyWord)
-          );
+      if (!profSelection[attribute]) continue;
+
+      const filtered =
+        keyWord === ""
+          ? profSelection[attribute].filter((el) =>
+              masterArr.includes(el.index)
+            )
+          : profSelection[attribute].filter((el) => el.index.includes(keyWord));
+
+      filtered.forEach((proficiency) => {
+        if (!uniqueUrls.has(proficiency["url"])) {
+          uniqueUrls.add(proficiency["url"]);
+          proficiencies.push(proficiency);
         }
-        noDuplicate = filtered.filter((el) => {
-          let found = list.findIndex(
-            (existing) => existing["url"] === el["url"]
-          );
-          return found < 0;
-        });
-        list = [...list, ...noDuplicate];
-      }
+      });
     }
-    setCharacter((prevState) => ({ ...prevState, ...{ [keyName]: list } }));
+
+    setCharacter((prevState) => ({
+      ...prevState,
+      ...{ [keyName]: proficiencies },
+    }));
   }
   function basicHandler(keyName, attributeObject) {
     let list = [];
@@ -302,7 +303,7 @@ function App() {
         }
       });
       if (hasKey(raceBonus, "bonus")) {
-        return raceBonus["bonus"];
+        return raceBonus.bonus;
       } else {
         return 0;
       }
@@ -312,12 +313,12 @@ function App() {
     let racialAbilityBonusArr = [];
     if (raceAbilityBonus) {
       racialAbilityBonusArr = raceAbilityBonus.map((el) => {
-        let temp = { ...el["ability_score"], ...{ ["bonus"]: el["bonus"] } };
+        let temp = { ...el["ability_score"], ...{ bonus: el["bonus"] } };
         return temp;
       });
       setCharacter((prevState) => ({
         ...prevState,
-        ...{ ["ability-bonus"]: racialAbilityBonusArr },
+        ...{ "ability-bonus": racialAbilityBonusArr },
       }));
     }
   }
@@ -332,7 +333,7 @@ function App() {
       }
       setCharacter((prevState) => ({
         ...prevState,
-        ...{ ["saving-throw-bonus"]: savingThrowsArr },
+        ...{ "saving-throw-bonus": savingThrowsArr },
       }));
       setCharacter((prevState) => ({
         ...prevState,

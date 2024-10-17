@@ -1,4 +1,3 @@
-import { BASE } from "../../lib/Api";
 
 export const Mocks = {
   races: {
