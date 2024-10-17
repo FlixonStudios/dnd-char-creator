@@ -35,8 +35,7 @@ export function Home({ isMock }) {
         obj[key] = el;
       }
     });
-    // FIXME: skip parsing for now
-    setEnvironment({ "the-environment": str });
+    setEnvironment(obj);
   }
 
   return (

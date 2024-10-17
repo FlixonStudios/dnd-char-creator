@@ -478,6 +478,9 @@ export function Creator({
               <Row>
                 <Col sm={6} className={"text-white"}>
                   <h5>Tools</h5>
+                  {
+                    // FIXME: not working as intended
+                  }
                   <DisplayData
                     list={character["tool-proficiencies"]}
                     keyName={"name"}
