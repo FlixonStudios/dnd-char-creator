@@ -1,6 +1,7 @@
 {
   "name": "dnd",
   "version": "0.1.0",
+  "homepage": "https://flixonstudios.github.io/dnd-char-creator",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.12.0",
