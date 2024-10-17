@@ -38,15 +38,21 @@ export function Home({ isMock }) {
     setEnvironment(obj);
   }
 
+  const containerStyles = {
+    backgroundColor: `rgba(0,0,0,0.7)`,
+    ...(isMock ? { paddingBottom: "136px" } : { paddingBottom: "40px" }),
+  };
+
   return (
     <div
       style={{
         backgroundImage: `url(${bg_img})`,
         backgroundSize: `cover`,
         backgroundPosition: `center`,
+        display: `flex`,
       }}
     >
-      <Container className={""} style={{ backgroundColor: `rgba(0,0,0,0.7)` }}>
+      <Container style={containerStyles}>
         <Row>
           <Col md={12}>
             <h1 className={"text-white text-center"}>Begin YOUR Legend</h1>

@@ -393,16 +393,17 @@ function App() {
     }));
   }
 
+  const mainStyles = {
+    backgroundColor: `rgba(71, 20, 20, 1.0)`,
+    display: `flex`,
+    height: `100vh`,
+    flexDirection: `column`,
+    ...(isMock ? { paddingBottom: "136px" } : { paddingBottom: "40px" }),
+  };
+
   return (
     <BrowserRouter>
-      <div
-        style={{
-          backgroundColor: `rgba(71, 20, 20, 1.0)`,
-          display: `flex`,
-          height: `100vh`,
-          flexDirection: `column`,
-        }}
-      >
+      <div style={mainStyles}>
         <div
           style={{
             backgroundImage: `url(${banner})`,
