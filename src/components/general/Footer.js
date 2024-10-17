@@ -20,8 +20,17 @@ export function Footer({ isMock }) {
     };
     return (
       <div style={disclaimerStyle}>
-        { isMock && <p style={{ color: "white" }}>External API to fetch D&D data is currently unavailable... Using mock data.</p> }
-        <p style={{ color: "white" }}>
+        {isMock && (
+          <>
+            <p style={{ color: "white", marginBottom: 0 }}>
+              External API to fetch D&D data is currently unavailable...
+            </p>
+            <p style={{ color: "white" }}>
+              Using mock data (which might have missing or inaccurate data).
+            </p>
+          </>
+        )}
+        <p style={{ color: "white", marginBottom: 0 }}>
           Disclaimer: This site is a not commercial and is not official. Just my
           personal project.
         </p>
