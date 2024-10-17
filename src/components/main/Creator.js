@@ -172,18 +172,21 @@ export function Creator({
     callback((prevState) => e.target.value);
   }
 
+  const containerStyles = {
+    backgroundColor: `rgba(0,0,0,0.7)`,
+    ...(isMock ? { paddingBottom: "136px" } : { paddingBottom: "40px" }),
+  };
+
   return (
     <div
       style={{
         backgroundImage: `url(${bg_img})`,
         backgroundSize: `cover`,
         backgroundPosition: `center`,
-        height: "100%",
+        display: `flex`,
       }}
     >
-      <Container
-        style={{ backgroundColor: `rgba(0,0,0,0.7)`, paddingBottom: "96px" }}
-      >
+      <Container style={containerStyles}>
         <Row>
           <Col lg={8}>
             <div name={"key-stats"}>
