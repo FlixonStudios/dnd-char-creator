@@ -1,0 +1,39 @@
+run-name: build web
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  id-token: write
+  pages: write
+
+jobs:
+  checkout_job:
+    runs-on: ubuntu-22.04 
+    steps:
+      # This step checks out a copy of your repository.
+      - name: check out repository
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "16.20.2"
+      - run: npm ci
+      - run: npm run build
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./build"
+
+  build-job:
+    runs-on: ubuntu-22.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: checkout_job
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
